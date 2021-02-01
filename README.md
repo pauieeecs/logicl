@@ -1,0 +1,2 @@
+# Logicl nedir?
+Logicl insanların fikirlerini paylaşabileceği ve paylaşılmış fikirleri oylayabileceği bir platformdur. Bu sayede diğer insanlardan hızlı şekilde geri dönüt alabilir ve bu geri dönütlere bağlı olarak fikirlerinizi geliştirebilirsiniz.
