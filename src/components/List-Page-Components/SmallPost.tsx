@@ -1,4 +1,6 @@
 import { Flex, Heading, Text } from "@chakra-ui/react"
+import { useState } from "react"
+import ProfileCard from "../List-Page-Components/ProfileCard"
 type Props = {
   title: string
   text: string
@@ -6,26 +8,36 @@ type Props = {
   date: string
 }
 const SmallPost: React.FC<Props> = ({ title, text, vote, date }) => {
+  const [showMore, setShowMore] = useState(false)
   return (
     <Flex
-      w="266px"
+      w="250px"
       borderRadius="8px"
-      h="160px"
-      bgColor="red"
-      direction="column"
+      h="200px"
       backgroundColor="#E6F8FD"
       _hover={{ bgColor: "#C3F2FF", cursor: "pointer" }}
     >
-      <Flex mx={3} my={2} direction="column">
-        <Heading fontSize="16px" noOfLines={1}>
+      <Flex mx={2} my={2} direction="column" justifyContent="space-between">
+        <Heading fontSize="18px" noOfLines={1}>
           {title}
         </Heading>
-        <Text fontSize="14px" noOfLines={5}>
+        <Text fontSize="16px" mt={1} noOfLines={5}>
           {text}
         </Text>
-        <Text opacity="0.5" mt={1} fontSize="12px">
-          username / {vote} votes / {date}
-        </Text>
+        <Flex color="gray" direction="column" mt={1} fontSize="12px">
+          <Flex
+            _hover={{ textDecoration: "underline" }}
+            onMouseOver={() => setShowMore(true)}
+            onMouseLeave={() => setShowMore(false)}
+            direction="column"
+          >
+            <Text>@mehmet sinan topal</Text>
+            <Flex hidden={!showMore ? true : false} position="relative">
+              <ProfileCard />
+            </Flex>
+          </Flex>
+          {vote} votes / {date}
+        </Flex>
       </Flex>
     </Flex>
   )
