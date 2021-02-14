@@ -1,5 +1,6 @@
-import { Flex, Image } from "@chakra-ui/react"
+import { Flex } from "@chakra-ui/react"
 import React from "react"
+import Navbar from "./Navbar"
 
 type Props = {
   bgSrc: string
@@ -7,8 +8,15 @@ type Props = {
 
 const Container: React.FC<Props> = ({ bgSrc, children }) => {
   return (
-    <Flex width="100%" height="100%" flexDirection="column" alignItems="center">
-      <Image src={bgSrc} position="absolute" top="0" left="0" zIndex="-1" />
+    <Flex
+      width="100%"
+      height="100%"
+      minH="100vh"
+      flexDirection="column"
+      alignItems="center"
+      backgroundImage={`url(${bgSrc})`}
+    >
+      <Navbar />
       {children}
     </Flex>
   )
