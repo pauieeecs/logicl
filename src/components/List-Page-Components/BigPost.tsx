@@ -1,4 +1,5 @@
-import { Flex, Heading, Text } from "@chakra-ui/react"
+import { Button, ButtonGroup, Flex, Heading, Image, Text } from "@chakra-ui/react"
+import VoteButton from "../VoteButton"
 
 type Props = {
   category: string
@@ -9,8 +10,9 @@ type Props = {
 
 const BigPost: React.FC<Props> = ({ category, title, text, date }) => {
   return (
-    <Flex w="100%" h="266px" borderRadius="6px" mb={8} bgColor="#E6F8FD">
-      <Flex mx={2} direction="column">
+    <Flex w="100%" h="266px" position="relative" borderRadius="10px" my={8} bgColor="#E6F8FD">
+      <VoteButton />
+      <Flex mx={2} direction="column" justifyContent="space-between">
         <Text my={1} fontWeight="bold">
           {category}
         </Text>
