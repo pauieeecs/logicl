@@ -172,6 +172,34 @@ const Auth: React.FC = () => {
           >
             Sign up
           </Button>
+          <Button
+            justifyContent="center"
+            leftIcon={<Image boxSize={6} src="/github.svg" />}
+            variant="solid"
+            backgroundColor="#D5F4FC"
+            color="#065E77"
+            mt={4}
+            width="85%"
+            py={2}
+            border="2px solid #C3F2FF"
+            _hover={{ backgroundColor: "#C6F3FF" }}
+          >
+            Sign up with GitHub
+          </Button>
+          <Button
+            justifyContent="center"
+            leftIcon={<Image boxSize={6} src="/google.svg" />}
+            variant="solid"
+            backgroundColor="#D5F4FC"
+            color="#065E77"
+            mt={2}
+            width="85%"
+            py={2}
+            border="2px solid #C3F2FF"
+            _hover={{ backgroundColor: "#C6F3FF" }}
+          >
+            Sign up with Google
+          </Button>
         </Flex>
       </Flex>
     </Container>
