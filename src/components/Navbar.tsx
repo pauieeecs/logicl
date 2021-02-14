@@ -16,7 +16,7 @@ const Navbar: React.FC = () => {
           <Link href="/">logicl</Link>
         </Text>
 
-        <HStack spacing={4}>
+        <HStack spacing={4} mb={2}>
           <Link href="/addidea">
             <Image cursor="pointer" boxSize={8} src="/plus.svg" />
           </Link>
