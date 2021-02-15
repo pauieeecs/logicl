@@ -1,4 +1,5 @@
 import Head from "next/head"
+import List from "../pages/list"
 
 const Home: React.FC = () => {
   return (
@@ -7,12 +8,7 @@ const Home: React.FC = () => {
         <title>Logicl with NextJS</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main>
-        <h1>Welcome to Logicl!</h1>
-        <h1>Welcome to Logicl!</h1>
-        <h1>Welcome to Logicl!</h1>
-      </main>
+      <List />
     </div>
   )
 }
