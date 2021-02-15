@@ -2,7 +2,7 @@ import { Flex } from "@chakra-ui/react"
 import React from "react"
 import Navbar from "./Navbar"
 
-interface Props {
+type Props = {
   bgSrc: string
 }
 
@@ -15,7 +15,7 @@ const Container: React.FC<Props> = ({ bgSrc, children }) => {
       flexDirection="column"
       alignItems="center"
       backgroundImage={`url(${bgSrc})`}
-      bgRepeat="repeat-x"
+      backgroundRepeat="repeat-x"
     >
       <Navbar />
       {children}
