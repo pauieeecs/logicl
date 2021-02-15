@@ -15,6 +15,7 @@ const Container: React.FC<Props> = ({ bgSrc, children }) => {
       flexDirection="column"
       alignItems="center"
       backgroundImage={`url(${bgSrc})`}
+      bgRepeat="repeat-x"
     >
       <Navbar />
       {children}
