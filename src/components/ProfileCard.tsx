@@ -12,18 +12,18 @@ const ProfileCard: React.FC = () => {
       />
       <Flex
         w="300px"
-        h="64px"
+        h="68px"
         ml={-4}
         px={4}
         direction="column"
         bgColor="#035269"
         justify="center"
-        borderRightRadius="32px"
+        borderRightRadius="36px"
       >
-        <Heading mx={1} fontSize="14px">
+        <Heading mx={1} fontSize="16px">
           Sinan Topal
         </Heading>
-        <Text mx={1} noOfLines={2}>
+        <Text mx={1} fontSize="12px" noOfLines={2}>
           Lorem ipsum dolor sit amet ama yine de emin deilim gdghawd awdjfwadgawd dahwfdawhd
           awhdwavdhwav .d
         </Text>

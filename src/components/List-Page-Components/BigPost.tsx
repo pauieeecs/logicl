@@ -1,7 +1,7 @@
 import { Flex, Heading, Text } from "@chakra-ui/react"
 import { useState } from "react"
 import VoteButton from "../VoteButton"
-import ProfileCard from "../List-Page-Components/ProfileCard"
+import ProfileCard from "../ProfileCard"
 
 type Props = {
   category: string
@@ -28,7 +28,9 @@ const BigPost: React.FC<Props> = ({ category, title, text, date }) => {
           {category}
         </Text>
         <Flex position="relative">
-          <Heading fontSize="28px">{title}</Heading>
+          <Heading fontSize="28px" noOfLines={1} maxW="600px">
+            {title}
+          </Heading>
           <Flex mx={2} align="flex-end" fontSize="14px">
             <Flex
               _hover={{ textDecoration: "underline" }}

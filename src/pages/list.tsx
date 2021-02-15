@@ -5,63 +5,30 @@ import SmallPost from "../components/List-Page-Components/SmallPost"
 import BigPost from "../components/List-Page-Components/BigPost"
 
 const List: React.FC = () => {
+  const text =
+    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.including version.."
   return (
     <Container bgSrc="/wave1.svg">
       <Flex direction="column" w="100%" align="center">
-        <SwitchButton />
+        <SwitchButton page="List" />
         <Flex w="1080px" mt={10} justify="space-between">
-          <SmallPost
-            title="denme"
-            text="lorem ipsum dolor sit amet dagwjd wadyuagwdad dajwdgahwj dajwgydawj djawgydaj dajwgydawj dajwgydawjdajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj "
-            vote={21}
-            date="14:25 - 21/11/2021"
-          />
-          <SmallPost
-            title="denme"
-            text="lorem ipsum dolor sit amet dagwjd wadyuagwdad dajwdgahwj dajwgydawj djawgydaj dajwgydawj dajwgydawjdajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj "
-            vote={21}
-            date="14:25 - 21/11/2021"
-          />
-          <SmallPost
-            title="denme"
-            text="lorem ipsum dolor sit amet dagwjd wadyuagwdad dajwdgahwj dajwgydawj djawgydaj dajwgydawj dajwgydawjdajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj "
-            vote={21}
-            date="14:25 - 21/11/2021"
-          />
-          <SmallPost
-            title="denme"
-            text="lorem ipsum dolor sit amet dagwjd wadyuagwdad dajwdgahwj dajwgydawj djawgydaj dajwgydawj dajwgydawjdajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj "
-            vote={21}
-            date="14:25 - 21/11/2021"
-          />
+          <SmallPost title="denme" text={text} vote={21} date="14:25 - 21/11/2021" />
+          <SmallPost title="denme" text={text} vote={21} date="14:25 - 21/11/2021" />
+          <SmallPost title="denme" text={text} vote={21} date="14:25 - 21/11/2021" />
+          <SmallPost title="denme" text={text} vote={21} date="14:25 - 21/11/2021" />
         </Flex>
         <Flex mt={6} width="1080px" height="60px" bgColor="#01A7D7" borderRadius="6px"></Flex>
         <Wrap w="1080px" spacing={4}>
           <WrapItem flex="6" mt={12} flexDirection="column">
             <BigPost
               category="lorem"
-              title="deneme"
-              text="dauwfygwadhj djawgydaj dajwgydawj dajwgydawjdajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj djawgydaj dajwgydawj dajwgydawjdajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj dbkjwahdgvwajddgawfhvdghadawda uwfygwadhjdb kjwahdgvwajddga wfhvdghadawdau wfygwadhjdbkjwa hdgvwajddgawf hvdghadawdauwfygwadh jdbkjwahdgvwajddgaw fhvdghadawdauwf ygwadhjdbkjw ahdgvwajddgaw fhvdghadawdauwfygwadhj dbkjwahdgvwaj ddgawfhvdghadawdauwfygwad hjdbkjwahdgvwajdd gawfhvdghad awdauwfygwad hjdbkjwahdgvwajd dgawfhvdghadaw"
+              title="muvaffakiyetsizleştiribiliveremeyeceklerimizdenmişsinizcesine"
+              text={text}
               date="15:25 - 12/14/2020"
             />
-            <BigPost
-              category="lorem"
-              title="deneme"
-              text="dauwfygwadhj djawgydaj dajwgydawj dajwgydawjdajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj djawgydaj dajwgydawj dajwgydawjdajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj dbkjwahdgvwajddgawfhvdghadawda uwfygwadhjdb kjwahdgvwajddga wfhvdghadawdau wfygwadhjdbkjwa hdgvwajddgawf hvdghadawdauwfygwadh jdbkjwahdgvwajddgaw fhvdghadawdauwf ygwadhjdbkjw ahdgvwajddgaw fhvdghadawdauwfygwadhj dbkjwahdgvwaj ddgawfhvdghadawdauwfygwad hjdbkjwahdgvwajdd gawfhvdghad awdauwfygwad hjdbkjwahdgvwajd dgawfhvdghadaw"
-              date="15:25 - 12/14/2020"
-            />
-            <BigPost
-              category="lorem"
-              title="deneme"
-              text="dauwfygwadhj djawgydaj dajwgydawj dajwgydawjdajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj djawgydaj dajwgydawj dajwgydawjdajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj dbkjwahdgvwajddgawfhvdghadawda uwfygwadhjdb kjwahdgvwajddga wfhvdghadawdau wfygwadhjdbkjwa hdgvwajddgawf hvdghadawdauwfygwadh jdbkjwahdgvwajddgaw fhvdghadawdauwf ygwadhjdbkjw ahdgvwajddgaw fhvdghadawdauwfygwadhj dbkjwahdgvwaj ddgawfhvdghadawdauwfygwad hjdbkjwahdgvwajdd gawfhvdghad awdauwfygwad hjdbkjwahdgvwajd dgawfhvdghadaw"
-              date="15:25 - 12/14/2020"
-            />
-            <BigPost
-              category="lorem"
-              title="deneme"
-              text="dauwfygwadhj djawgydaj dajwgydawj dajwgydawjdajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj djawgydaj dajwgydawj dajwgydawjdajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj dbkjwahdgvwajddgawfhvdghadawda uwfygwadhjdb kjwahdgvwajddga wfhvdghadawdau wfygwadhjdbkjwa hdgvwajddgawf hvdghadawdauwfygwadh jdbkjwahdgvwajddgaw fhvdghadawdauwf ygwadhjdbkjw ahdgvwajddgaw fhvdghadawdauwfygwadhj dbkjwahdgvwaj ddgawfhvdghadawdauwfygwad hjdbkjwahdgvwajdd gawfhvdghad awdauwfygwad hjdbkjwahdgvwajd dgawfhvdghadaw"
-              date="15:25 - 12/14/2020"
-            />
+            <BigPost category="lorem" title="deneme" text={text} date="15:25 - 12/14/2020" />
+            <BigPost category="lorem" title="deneme" text={text} date="15:25 - 12/14/2020" />
+            <BigPost category="lorem" title="deneme" text={text} date="15:25 - 12/14/2020" />
           </WrapItem>
           <WrapItem
             flexDirection="column"
@@ -76,35 +43,15 @@ const List: React.FC = () => {
               <Heading my={2} fontSize="20px">
                 Most Interected Ideas
               </Heading>
-              <SmallPost
-                title="denme"
-                text="lorem ipsum dolor sit amet dagwjd wadyuagwdad dajwdgahwj dajwgydawj djawgydaj dajwgydawj dajwgydawjdajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj"
-                vote={21}
-                date="14:25 - 21/11/2021"
-              />
-              <SmallPost
-                title="denme"
-                text="lorem ipsum dolor sit amet dagwjd wadyuagwdad dajwdgahwj dajwgydawj djawgydaj dajwgydawj dajwgydawjdajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj"
-                vote={21}
-                date="14:25 - 21/11/2021"
-              />
+              <SmallPost title="denme" text={text} vote={21} date="14:25 - 21/11/2021" />
+              <SmallPost title="denme" text={text} vote={21} date="14:25 - 21/11/2021" />
             </Flex>
             <Flex direction="column" my={4} align="center">
               <Heading my={2} fontSize="20px">
                 Most Upvoted Feedbacks
               </Heading>
-              <SmallPost
-                title="denme"
-                text="lorem ipsum dolor sit amet dagwjd wadyuagwdad dajwdgahwj dajwgydawj djawgydaj dajwgydawj dajwgydawjdajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj"
-                vote={21}
-                date="14:25 - 21/11/2021"
-              />
-              <SmallPost
-                title="denme"
-                text="lorem ipsum dolor sit amet dagwjd wadyuagwdad dajwdgahwj dajwgydawj djawgydaj dajwgydawj dajwgydawjdajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj dajwgydawj"
-                vote={21}
-                date="14:25 - 21/11/2021"
-              />
+              <SmallPost title="denme" text={text} vote={21} date="14:25 - 21/11/2021" />
+              <SmallPost title="denme" text={text} vote={21} date="14:25 - 21/11/2021" />
             </Flex>
           </WrapItem>
         </Wrap>

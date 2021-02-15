@@ -1,8 +1,9 @@
-import { Button, ButtonGroup } from "@chakra-ui/react"
-import { useState } from "react"
-
-const Buttons: React.FC = () => {
-  const [isList, setIsList] = useState(true)
+import { Button, ButtonGroup, Link, Text } from "@chakra-ui/react"
+import React from "react"
+type Props = {
+  page: string
+}
+const Buttons: React.FC<Props> = ({ page }) => {
   return (
     <ButtonGroup
       mt={2}
@@ -13,21 +14,43 @@ const Buttons: React.FC = () => {
       w="200px"
     >
       <Button
-        onClick={() => setIsList(false)}
-        bgColor={isList === false ? "#01A7D7" : "#efefef"}
+        bgColor={page === "Shuffle" ? "#01A7D7" : "#efefef"}
+        _hover={{ bgColor: "#62C5DA" }}
         borderRadius="20px"
-        w="100px"
+        w="50%"
+        p="0"
       >
-        Shuffle
+        <Link
+          w="100%"
+          h="100%"
+          _hover={{ textDecoration: "none" }}
+          flexDirection="column"
+          justifyContent="center"
+          href="/shuffle"
+          borderRadius="20px"
+        >
+          <Text my="11px">Shuffle</Text>
+        </Link>
       </Button>
 
       <Button
-        onClick={() => setIsList(true)}
-        bgColor={isList === true ? "#01A7D7" : "#efefef"}
+        bgColor={page === "List" ? "#01A7D7" : "#efefef"}
         borderRadius="20px"
-        w="100px"
+        _hover={{ bgColor: "#62C5DA" }}
+        w="50%"
+        p="0"
       >
-        List
+        <Link
+          w="100%"
+          h="100%"
+          _hover={{ textDecoration: "none" }}
+          flexDirection="column"
+          justifyContent="center"
+          href="/"
+          borderRadius="20px"
+        >
+          <Text my="11px">List</Text>
+        </Link>
       </Button>
     </ButtonGroup>
   )
