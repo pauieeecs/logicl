@@ -13,7 +13,7 @@ const VoteButton: React.FC = () => {
         justifyContent="center"
         _hover={{ bgColor: "green.600" }}
       >
-        <Image src="/up.svg" mb={1} /> <Text>31</Text>
+        <Image src="/up.svg" mb={1} /> <Text>21</Text>
       </Button>
       <Button
         color="white"
@@ -25,7 +25,7 @@ const VoteButton: React.FC = () => {
         justifyContent="center"
         _hover={{ bgColor: "red.700" }}
       >
-        <Text>31</Text> <Image src="/down.svg" mt={1} />
+        <Text>21</Text> <Image src="/down.svg" mt={1} />
       </Button>
     </ButtonGroup>
   )

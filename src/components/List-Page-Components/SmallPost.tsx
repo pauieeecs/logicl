@@ -27,7 +27,7 @@ const SmallPost: React.FC<Props> = ({ title, text, vote, date }) => {
         <Flex pl={2} alignItems="center" position="absolute" align="center" right="8px">
           <Image boxSize={4} src="/up-small.svg" />
           <Text fontWeight="500" textAlign="center" pl={1} fontSize="12px">
-            31
+            21
           </Text>
         </Flex>
       </Flex>
