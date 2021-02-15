@@ -10,21 +10,21 @@ const Navbar: React.FC = () => {
         height="100%"
         flexDirection="row"
         justifyContent="space-between"
-        alignItems="flex-end"
+        alignItems="center"
       >
         <Text fontSize="40px" fontWeight="500">
           <Link href="/">logicl</Link>
         </Text>
 
-        <HStack spacing={4} mb={2}>
+        <HStack spacing={4}>
           <Link href="/addidea">
-            <Image cursor="pointer" boxSize={8} src="/plus.svg" />
+            <Image cursor="pointer" boxSize={6} src="/plus.svg" />
           </Link>
           <Link href="/notifications">
-            <Image cursor="pointer" boxSize={8} src="/bell.svg" />
+            <Image cursor="pointer" boxSize={6} src="/bell.svg" />
           </Link>
           <Link href="/profile">
-            <Image cursor="pointer" boxSize={8} src="/profile.svg" />
+            <Image cursor="pointer" boxSize={6} src="/profile.svg" />
           </Link>
         </HStack>
       </Flex>
