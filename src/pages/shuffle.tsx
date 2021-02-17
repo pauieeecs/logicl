@@ -25,6 +25,7 @@ const Shuffle: React.FC = () => {
       >
         <Flex position="relative" direction="column">
           <Content
+            category="Startup - Veri Analizi"
             title="Trendyol’da işe girmek istiyorum agalar"
             text="Lorem Ipsum is simply dummy text of the 
           printing and typesetting industry. Lorem Ipsum 

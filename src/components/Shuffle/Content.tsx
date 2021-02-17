@@ -2,12 +2,13 @@ import { Flex, Heading, Text } from "@chakra-ui/react"
 type Props = {
   title: string
   text: string
+  category: string
 }
-const Content: React.FC<Props> = ({ title, text }) => {
+const Content: React.FC<Props> = ({ title, text ,category}) => {
   return (
     <Flex direction="column" position="relative">
       <Heading letterSpacing={1} fontWeight="bold" size="xs">
-        CATEGORY
+        {category}
       </Heading>
       <Heading letterSpacing={1} my={5} size="lg">
         {title}
