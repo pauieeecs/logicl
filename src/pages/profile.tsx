@@ -3,7 +3,7 @@ import Container from "../components/Container"
 import React, { useState } from "react"
 import Idea from "../components/profile/Idea"
 import Comment from "../components/profile/Comment"
-import Profile from "../components/profile/profile"
+import Profile from "../components/profile/Profile"
 
 const profile: React.FC = () => {
   const [isActive, setIsActive] = useState(true)
