@@ -23,9 +23,10 @@ const Shuffle: React.FC = () => {
         borderRadius={15}
         position="relative"
       >
-        <Content
-          title="Trendyol’da işe girmek istiyorum agalar"
-          text="Lorem Ipsum is simply dummy text of the 
+        <Flex position="relative" direction="column">
+          <Content
+            title="Trendyol’da işe girmek istiyorum agalar"
+            text="Lorem Ipsum is simply dummy text of the 
           printing and typesetting industry. Lorem Ipsum 
           has been the industry's standard dummy text ever 
           since the 1500s, when an unknown printer took a 
@@ -43,24 +44,28 @@ const Shuffle: React.FC = () => {
            and more recently with desktop publishing 
            software like Aldus PageMaker including versions of 
            Lorem Ipsum.including version.."
-        />
-        <Box my={6} w="100%" h="2px" bgColor="#003848" />
+          />
+          <Text
+            position="absolute"
+            right="5"
+            bottom="-6"
+            color="#015D78"
+            fontWeight="bold"
+            fontSize="sm"
+            cursor="pointer"
+            opacity="0.7"
+            onClick={onOpen}
+          >
+            click to read more
+          </Text>
+        </Flex>
+
+        <Box my={7} w="100%" h="2px" bgColor="#003848" />
         <Heading letterSpacing="1px" size="md" color="#015D78">
           Öne Çıkan Yorumlar
         </Heading>
         <Comments />
-        <Text
-          position="absolute"
-          right="5"
-          bottom="5"
-          color="#015D78"
-          fontWeight="bold"
-          fontSize="sm"
-          cursor="pointer"
-          onClick={onOpen}
-        >
-          click to read more
-        </Text>
+
         <VoteButton top="-24px" right="50px" down={55} up={55} />
         <Link href="#">
           <Icon
