@@ -5,9 +5,7 @@ import {
   FormLabel,
   Heading,
   Input,
-  Radio,
-  RadioGroup,
-  Stack,
+  Select,
   Text,
   Textarea,
 } from "@chakra-ui/react"
@@ -54,13 +52,16 @@ const CreateTeam: React.FC = () => {
                 value={teamName}
               ></Input>
               <FormLabel mt={6}>Kategoriler</FormLabel>
-              <RadioGroup onChange={(e) => setCategory(`${e}`)} value={category}>
-                <Stack direction="row">
-                  <Radio value="Web">Web</Radio>
-                  <Radio value="Mobil">Mobil</Radio>
-                  <Radio value="Design">Design</Radio>
-                </Stack>
-              </RadioGroup>
+              <Select
+                placeholder="Kategori seçiniz"
+                value={category}
+                color={category === "" ? "gray.400" : "black"}
+                onChange={(e) => setCategory(`${e.target.value}`)}
+              >
+                <option>Web</option>
+                <option>Mobil</option>
+                <option>Design</option>
+              </Select>
               <FormLabel mt={6}>Açıklama</FormLabel>
               <Textarea
                 onChange={(e) => setDesc(e.target.value)}
@@ -68,7 +69,6 @@ const CreateTeam: React.FC = () => {
                 isRequired
                 placeholder="Minimum 100 karakter"
               ></Textarea>
-              {console.log(teamName, desc, category)}
               <Flex mt={6} justify="flex-end">
                 <Button
                   disabled={
