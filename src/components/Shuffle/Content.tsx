@@ -5,14 +5,14 @@ type Props = {
 }
 const Content: React.FC<Props> = ({ title, text }) => {
   return (
-    <Flex direction="column">
-      <Heading letterSpacing="2px" fontWeight="bold" size="xs">
+    <Flex direction="column" position="relative">
+      <Heading letterSpacing={1} fontWeight="bold" size="xs">
         CATEGORY
       </Heading>
-      <Heading letterSpacing="2px" my={5} size="lg">
+      <Heading letterSpacing={1} my={5} size="lg">
         {title}
       </Heading>
-      <Text letterSpacing="2px" noOfLines={8}>
+      <Text letterSpacing={1} noOfLines={7}>
         {text}
       </Text>
     </Flex>
