@@ -7,22 +7,59 @@ import {
   Image,
   Input,
   Select,
+  useToast,
 } from "@chakra-ui/react"
-import React from "react"
+import { useRouter } from "next/dist/client/router"
+import React, { useState } from "react"
 import Container from "../components/Container"
+import { useAuth } from "../context/authentication"
+import { UserSignin, UserSignup } from "../types/authTypes"
+import { getYearsArray } from "../utils/getYearList"
 
 const Auth: React.FC = () => {
-  const getYearsArray = (): number[] => {
-    const yearStart = 1923
-    const yearEnd = new Date().getUTCFullYear()
+  const { user, signin, signup, loading } = useAuth()
 
-    const arr: number[] = []
+  const toast = useToast()
+  const router = useRouter()
 
-    for (let i = yearStart; i < yearEnd + 1; i++) {
-      arr.push(i)
-    }
+  const [signinData, setSigninData] = useState<UserSignin>({ email: "", password: "" })
+  const [signupData, setSignupData] = useState<UserSignup>({
+    email: "",
+    password: "",
+    fullName: "",
+    birthYear: 0,
+  })
 
-    return arr
+  const handleSignin = (): void => {
+    const { email, password } = signinData
+    if (email === "" || password === "" || password.length < 5 || email.length < 6) return
+    signin(email, password, "/")
+    setSigninData({ email: "", password: "" })
+  }
+
+  const handleSignup = (): void => {
+    const { email, password, fullName, birthYear } = signupData
+    if (
+      email === "" ||
+      password === "" ||
+      password.length < 5 ||
+      email.length < 6 ||
+      fullName.length < 3 ||
+      birthYear === 0
+    )
+      return
+
+    signup(email, password, fullName, birthYear, "/")
+    setSignupData({
+      email: "",
+      password: "",
+      fullName: "",
+      birthYear: 0,
+    })
+  }
+
+  if (!loading && user !== null) {
+    router.push("/profile")
   }
 
   return (
@@ -41,28 +78,30 @@ const Auth: React.FC = () => {
           mr={8}
         >
           <Heading fontWeight="600" fontSize="36px" color="#065E77">
-            Sign in
+            Giriş yap
           </Heading>
           <FormControl mt={4}>
             <FormLabel fontWeight="500" color="#065E77" fontSize="24px">
-              E-mail
+              E-posta
             </FormLabel>
             <Input
               focusBorderColor="#B3EBFA"
               borderRadius={6}
               placeholder="john@example.com"
               type="email"
-              id="login-mail"
+              id="signin-mail"
+              onChange={(e) => setSigninData({ ...signinData, email: e.target.value })}
             />
             <FormLabel mt={4} fontWeight="500" color="#065E77" fontSize="24px">
-              Password
+              Şifre
             </FormLabel>
             <Input
               focusBorderColor="#B3EBFA"
               borderRadius={6}
               placeholder="johnloveskatie2021"
               type="password"
-              id="login-password"
+              id="signin-password"
+              onChange={(e) => setSigninData({ ...signinData, password: e.target.value })}
             />
           </FormControl>
           <Button
@@ -73,8 +112,10 @@ const Auth: React.FC = () => {
             py={2}
             width="85%"
             _hover={{ backgroundColor: "#16BF8B" }}
+            onClick={handleSignin}
+            isLoading={loading}
           >
-            Sign in
+            Giriş yap
           </Button>
           <Button
             justifyContent="center"
@@ -87,8 +128,9 @@ const Auth: React.FC = () => {
             py={2}
             border="2px solid #C3F2FF"
             _hover={{ backgroundColor: "#C6F3FF" }}
+            isLoading={loading}
           >
-            Sign in with GitHub
+            GitHub ile giriş yap
           </Button>
           <Button
             justifyContent="center"
@@ -101,8 +143,9 @@ const Auth: React.FC = () => {
             py={2}
             border="2px solid #C3F2FF"
             _hover={{ backgroundColor: "#C6F3FF" }}
+            isLoading={loading}
           >
-            Sign in with Google
+            Google ile giriş yap
           </Button>
         </Flex>
         <Flex
@@ -117,43 +160,52 @@ const Auth: React.FC = () => {
           mr={8}
         >
           <Heading fontWeight="600" fontSize="36px" color="#065E77">
-            Sign up
+            Kayıt ol
           </Heading>
           <FormControl mt={4}>
             <FormLabel fontWeight="500" color="#065E77" fontSize="24px">
-              E-mail
+              E-posta
             </FormLabel>
             <Input
               focusBorderColor="#B3EBFA"
               borderRadius={6}
               placeholder="john@example.com"
               type="email"
-              id="login-mail"
+              id="signup-mail"
+              onChange={(e) => setSignupData({ ...signupData, email: e.target.value })}
             />
             <FormLabel mt={4} fontWeight="500" color="#065E77" fontSize="24px">
-              Password
+              Şifre
             </FormLabel>
             <Input
               focusBorderColor="#B3EBFA"
               borderRadius={6}
               placeholder="johnloveskatie2021"
               type="password"
-              id="login-password"
+              id="signup-password"
+              onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
             />
             <FormLabel mt={4} fontWeight="500" color="#065E77" fontSize="24px">
-              Full Name
+              Ad soyad
             </FormLabel>
             <Input
               focusBorderColor="#B3EBFA"
               borderRadius={6}
               placeholder="John Doe"
-              type="password"
-              id="login-password"
+              type="text"
+              id="signup-fullname"
+              onChange={(e) => setSignupData({ ...signupData, fullName: e.target.value })}
             />
             <FormLabel mt={4} fontWeight="500" color="#065E77" fontSize="24px">
-              Birth Year
+              Doğum Yılı
             </FormLabel>
-            <Select focusBorderColor="#B3EBFA">
+            <Select
+              focusBorderColor="#B3EBFA"
+              placeholder="Doğum tarihi"
+              onChange={(e) =>
+                setSignupData({ ...signupData, birthYear: parseInt(e.target.value) })
+              }
+            >
               {getYearsArray().map((year) => (
                 <option value={year} key={year}>
                   {year}
@@ -169,8 +221,10 @@ const Auth: React.FC = () => {
             py={2}
             width="85%"
             _hover={{ backgroundColor: "#16BF8B" }}
+            onClick={handleSignup}
+            isLoading={loading}
           >
-            Sign up
+            Kayıt ol
           </Button>
           <Button
             justifyContent="center"
@@ -183,8 +237,9 @@ const Auth: React.FC = () => {
             py={2}
             border="2px solid #C3F2FF"
             _hover={{ backgroundColor: "#C6F3FF" }}
+            isLoading={loading}
           >
-            Sign up with GitHub
+            GitHub ile kayıt ol
           </Button>
           <Button
             justifyContent="center"
@@ -197,8 +252,9 @@ const Auth: React.FC = () => {
             py={2}
             border="2px solid #C3F2FF"
             _hover={{ backgroundColor: "#C6F3FF" }}
+            isLoading={loading}
           >
-            Sign up with Google
+            Google ile kayıt ol
           </Button>
         </Flex>
       </Flex>

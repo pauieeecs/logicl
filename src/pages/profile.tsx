@@ -6,7 +6,7 @@ import Comment from "../components/profile/Comment"
 import Profile from "../components/profile/Profile"
 
 const profile: React.FC = () => {
-  const [isActive, setIsActive] = useState(true)
+  const [isActive, setIsActive] = useState<boolean>(true)
   return (
     <Container bgSrc="/wave1.svg">
       <Profile
