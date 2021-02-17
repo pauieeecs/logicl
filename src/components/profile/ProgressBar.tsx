@@ -6,34 +6,31 @@ type Props = {
   downVote: number
 }
 const ProgressBar: React.FC<Props> = ({ upVote, downVote }) => {
-  const [val, setVal] = useState(45)
+  const [val, setVal] = useState(0)
   const [color, setColor] = useState("")
 
   useEffect(() => {
     setVal((upVote / (upVote + downVote)) * 100)
-    if (val > 0 && val <= 33.3) {
+    if (val >= 0 && val <= 33.3) {
       setColor("red")
-    }
-    if (val > 33.3 && val <= 66.6) {
+    } else if (val > 33.3 && val <= 66.6) {
       setColor("yellow")
-    }
-    if (val > 66.6 && val <= 99.9) {
+    } else if (val > 66.6 && val <= 99.9) {
       setColor("green")
-    }
-    if (val === 100) {
+    } else if (val === 100) {
       setColor("blue")
     }
-  }, [])
+  }, [val])
   return (
     <Flex direction="column">
       <Flex direction="row" align="center" justify="center">
         <Image boxSize={2} src="/profile-up.svg" color="red"></Image>
         <Text fontWeight="600" fontSize="xs" mr={12}>
-          22
+          {upVote}
         </Text>
         <Image boxSize={2} src="/profile-down.svg"></Image>
         <Text fontWeight="600" fontSize="xs">
-          11
+          {downVote}
         </Text>
       </Flex>
       <Progress
@@ -45,7 +42,6 @@ const ProgressBar: React.FC<Props> = ({ upVote, downVote }) => {
         borderRadius="120px"
       />
     </Flex>
-    // ALDIĞI VOTE ORANINA GÖRE VALUE DEĞİŞECEK VE BELİRLİ ARALIKLARLA RENKLERİ DEĞİŞECEK
   )
 }
 
