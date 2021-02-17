@@ -1,8 +1,8 @@
-import { Flex, Heading, Stack } from "@chakra-ui/react"
+import { Heading, Stack } from "@chakra-ui/react"
 import Container from "../components/Container"
 import Team from "../components/teamsearching/Team"
 
-const teamsearching: React.FC = () => {
+const TeamSearching: React.FC = () => {
   return (
     <Container bgSrc="/wave3.svg">
       <Heading mt={10} w="780px" size="2xl" textAlign="center" fontWeight="bold" color="#065E77">
@@ -74,4 +74,4 @@ const teamsearching: React.FC = () => {
   )
 }
 
-export default teamsearching
+export default TeamSearching
