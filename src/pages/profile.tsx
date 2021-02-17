@@ -33,7 +33,7 @@ const profile: React.FC = () => {
           mt={2}
           spacing={0}
           bgColor="#fff"
-          border="3px solid #C1C1C1"
+          border="1px solid #C1C1C1"
           borderRadius="24px"
           w="250px"
         >
