@@ -29,9 +29,16 @@ const profile: React.FC = () => {
         direction="column"
         align="center"
       >
-        <ButtonGroup size="lg" variant="outline" mt={4} isAttached>
+        <ButtonGroup
+          mt={2}
+          spacing={0}
+          bgColor="#fff"
+          border="3px solid #C1C1C1"
+          borderRadius="24px"
+          w="250px"
+        >
           <Button
-            w="150px"
+            w="125px"
             mr="-px"
             colorScheme="#C1C1C1"
             borderRadius="39px"
@@ -49,11 +56,12 @@ const profile: React.FC = () => {
               bg: "#01BAEF",
               textColor: "#fff",
             }}
+            textColor="#003848"
           >
             Ideas
           </Button>
           <Button
-            w="150px"
+            w="125px"
             mr="-px"
             colorScheme="#C1C1C1"
             borderRadius="39px"
@@ -71,6 +79,7 @@ const profile: React.FC = () => {
               bg: "#01BAEF",
               textColor: "#fff",
             }}
+            textColor="#003848"
           >
             Comments
           </Button>
