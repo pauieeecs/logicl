@@ -1,3 +1,5 @@
+import firebase from "../libs/firebase"
+
 export type User = {
   uid: string
   name: string
@@ -5,6 +7,7 @@ export type User = {
   email: string
   slug: string
   birthYear: number
+  provider: string
 }
 
 export type UserSignin = {

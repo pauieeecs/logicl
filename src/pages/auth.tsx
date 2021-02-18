@@ -7,20 +7,20 @@ import {
   Image,
   Input,
   Select,
-  useToast,
 } from "@chakra-ui/react"
 import { useRouter } from "next/dist/client/router"
-import React, { useState } from "react"
+import React, { useMemo, useState } from "react"
 import Container from "../components/Container"
 import { useAuth } from "../context/authentication"
 import { UserSignin, UserSignup } from "../types/authTypes"
 import { getYearsArray } from "../utils/getYearList"
 
 const Auth: React.FC = () => {
-  const { user, signin, signup, loading } = useAuth()
+  const { user, signin, signup, loading, signinWithGoogle, signinWithGithub } = useAuth()
 
-  const toast = useToast()
   const router = useRouter()
+
+  const yearsArray = useMemo(getYearsArray, [getYearsArray])
 
   const [signinData, setSigninData] = useState<UserSignin>({ email: "", password: "" })
   const [signupData, setSignupData] = useState<UserSignup>({
@@ -90,6 +90,7 @@ const Auth: React.FC = () => {
               placeholder="john@example.com"
               type="email"
               id="signin-mail"
+              value={signinData.email}
               onChange={(e) => setSigninData({ ...signinData, email: e.target.value })}
             />
             <FormLabel mt={4} fontWeight="500" color="#065E77" fontSize="24px">
@@ -101,6 +102,7 @@ const Auth: React.FC = () => {
               placeholder="johnloveskatie2021"
               type="password"
               id="signin-password"
+              value={signinData.password}
               onChange={(e) => setSigninData({ ...signinData, password: e.target.value })}
             />
           </FormControl>
@@ -129,6 +131,7 @@ const Auth: React.FC = () => {
             border="2px solid #C3F2FF"
             _hover={{ backgroundColor: "#C6F3FF" }}
             isLoading={loading}
+            onClick={() => signinWithGithub()}
           >
             GitHub ile giriş yap
           </Button>
@@ -144,6 +147,7 @@ const Auth: React.FC = () => {
             border="2px solid #C3F2FF"
             _hover={{ backgroundColor: "#C6F3FF" }}
             isLoading={loading}
+            onClick={() => signinWithGoogle()}
           >
             Google ile giriş yap
           </Button>
@@ -173,6 +177,7 @@ const Auth: React.FC = () => {
               type="email"
               id="signup-mail"
               onChange={(e) => setSignupData({ ...signupData, email: e.target.value })}
+              value={signupData.email}
             />
             <FormLabel mt={4} fontWeight="500" color="#065E77" fontSize="24px">
               Şifre
@@ -184,6 +189,7 @@ const Auth: React.FC = () => {
               type="password"
               id="signup-password"
               onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
+              value={signupData.password}
             />
             <FormLabel mt={4} fontWeight="500" color="#065E77" fontSize="24px">
               Ad soyad
@@ -195,18 +201,20 @@ const Auth: React.FC = () => {
               type="text"
               id="signup-fullname"
               onChange={(e) => setSignupData({ ...signupData, fullName: e.target.value })}
+              value={signupData.fullName}
             />
             <FormLabel mt={4} fontWeight="500" color="#065E77" fontSize="24px">
               Doğum Yılı
             </FormLabel>
             <Select
               focusBorderColor="#B3EBFA"
-              placeholder="Doğum tarihi"
+              placeholder="Seçiniz.."
               onChange={(e) =>
                 setSignupData({ ...signupData, birthYear: parseInt(e.target.value) })
               }
+              value={signupData.birthYear}
             >
-              {getYearsArray().map((year) => (
+              {yearsArray.map((year) => (
                 <option value={year} key={year}>
                   {year}
                 </option>
@@ -238,6 +246,7 @@ const Auth: React.FC = () => {
             border="2px solid #C3F2FF"
             _hover={{ backgroundColor: "#C6F3FF" }}
             isLoading={loading}
+            onClick={() => signinWithGithub()}
           >
             GitHub ile kayıt ol
           </Button>
@@ -253,6 +262,7 @@ const Auth: React.FC = () => {
             border="2px solid #C3F2FF"
             _hover={{ backgroundColor: "#C6F3FF" }}
             isLoading={loading}
+            onClick={() => signinWithGoogle()}
           >
             Google ile kayıt ol
           </Button>

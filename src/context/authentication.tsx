@@ -3,6 +3,7 @@ import { useRouter } from "next/dist/client/router"
 import { createContext, useContext, useEffect, useState } from "react"
 import firebase from "../libs/firebase"
 import { User } from "../types/authTypes"
+import slugGenerator from "../utils/slugGenerator"
 
 type Auth = {
   user: User
@@ -15,7 +16,9 @@ type Auth = {
     birthYear: number,
     redirect: string
   ) => void
-  signout: (redirect: string) => void
+  signout: (redirect: string | boolean) => void
+  signinWithGoogle: () => void
+  signinWithGithub: () => void
 }
 
 const authContext = createContext<Auth>(null)
@@ -36,6 +39,9 @@ const useProvideAuth = (): Auth => {
   const router = useRouter()
   const toast = useToast()
 
+  const googleProvider = new firebase.auth.GoogleAuthProvider()
+  const githubProvider = new firebase.auth.GithubAuthProvider()
+
   const handleUser = async (rawUser: firebase.User): Promise<boolean> => {
     setLoading(true)
     if (rawUser) {
@@ -49,12 +55,15 @@ const useProvideAuth = (): Auth => {
           email: userData.email,
           slug: userData.slug,
           birthYear: userData.birthYear,
+          provider: userData.providerData,
         }
         setUser(tempUser)
+        localStorage.setItem("logicl-user", JSON.stringify(tempUser))
         setLoading(false)
         return true
       }
     }
+    localStorage.removeItem("logicl-user")
     setUser(null)
     setLoading(false)
     return false
@@ -105,6 +114,7 @@ const useProvideAuth = (): Auth => {
         email: email,
         slug: "testt",
         birthYear: birthYear,
+        provider: "email",
       }
       await firebase.firestore().collection("users").doc(authResponse.user.uid).set(tempUser)
       handleUser(authResponse.user)
@@ -131,11 +141,101 @@ const useProvideAuth = (): Auth => {
     }
   }
 
+  const signinWithGoogle = async (): Promise<void> => {
+    try {
+      setLoading(true)
+      const authResponse = await firebase.auth().signInWithPopup(googleProvider)
+      const mail = authResponse.user.email
+      const tempUser: User = {
+        uid: authResponse.user.uid,
+        name: authResponse.user.displayName,
+        photoUrl: authResponse.user.photoURL,
+        email: mail,
+        slug: slugGenerator(mail),
+        birthYear: 0,
+        provider: "google",
+      }
+      await firebase.firestore().collection("users").doc(authResponse.user.uid).set(tempUser)
+
+      handleUser(authResponse.user)
+      router.push("/").then(() => {
+        toast({
+          title: "Başarılı.",
+          description: "Hesabını başarıyla oluşturduk.",
+          status: "success",
+          duration: 6000,
+          isClosable: true,
+        })
+        setLoading(false)
+      })
+    } catch (err) {
+      console.log(err)
+      toast({
+        title: "Hata oluştu.",
+        description: err.message,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      })
+      setLoading(false)
+    }
+  }
+
+  const signinWithGithub = async (): Promise<void> => {
+    try {
+      setLoading(true)
+      const authResponse = await firebase.auth().signInWithPopup(githubProvider)
+
+      const tempUser: User = {
+        uid: authResponse.user.uid,
+        name: authResponse.user.displayName,
+        photoUrl: authResponse.user.photoURL,
+        email: authResponse.user.email,
+        slug: authResponse.additionalUserInfo.username,
+        birthYear: 0,
+        provider: "github",
+      }
+      await firebase.firestore().collection("users").doc(authResponse.user.uid).set(tempUser)
+      handleUser(authResponse.user)
+      router.push("/").then(() => {
+        toast({
+          title: "Başarılı.",
+          description: "Hesabını başarıyla oluşturduk.",
+          status: "success",
+          duration: 6000,
+          isClosable: true,
+        })
+        setLoading(false)
+      })
+    } catch (err) {
+      console.log(err)
+      toast({
+        title: "Hata oluştu.",
+        description: err.message,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      })
+      setLoading(false)
+    }
+  }
+
   const signout = async (redirect: string): Promise<void> => {
     setLoading(true)
     await firebase.auth().signOut()
     handleUser(null)
-    router.push(redirect).then(() => {
+    if (redirect) {
+      router.push(redirect).then(() => {
+        toast({
+          title: "Başarılı.",
+          description: "Çıkış işlemi başarıyla tamamlandı.",
+          status: "success",
+          duration: 6000,
+          isClosable: true,
+        })
+        setLoading(false)
+      })
+    } else {
       toast({
         title: "Başarılı.",
         description: "Çıkış işlemi başarıyla tamamlandı.",
@@ -144,11 +244,15 @@ const useProvideAuth = (): Auth => {
         isClosable: true,
       })
       setLoading(false)
-    })
+    }
+    setLoading(true)
   }
 
   useEffect(() => {
-    const unsub = firebase.auth().onAuthStateChanged(handleUser)
+    const rawUserData = localStorage.getItem("logicl-user")
+    const userData = JSON.parse(rawUserData)
+    if (userData) setUser(userData)
+    const unsub = firebase.auth().onAuthStateChanged((user) => handleUser(user))
     return () => unsub
   }, [])
 
@@ -158,5 +262,7 @@ const useProvideAuth = (): Auth => {
     signin,
     signup,
     signout,
+    signinWithGoogle,
+    signinWithGithub,
   }
 }
