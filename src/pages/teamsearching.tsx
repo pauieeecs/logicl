@@ -1,6 +1,6 @@
 import { Heading, Stack } from "@chakra-ui/react"
 import Container from "../components/Container"
-import Team from "../components/teamsearching/Team"
+import Team from "../components/Team-Searching/Team"
 
 const TeamSearching: React.FC = () => {
   return (
