@@ -1,6 +1,11 @@
 import { Flex, Heading, Image, Text } from "@chakra-ui/react"
 
-const ProfileCard: React.FC = () => {
+type Props = {
+  userName: string
+  userDesc: string
+}
+
+const ProfileCard: React.FC<Props> = ({ userName, userDesc }) => {
   return (
     <Flex position="absolute" alignItems="center" p={1} color="white">
       <Image
@@ -21,11 +26,10 @@ const ProfileCard: React.FC = () => {
         borderRightRadius="36px"
       >
         <Heading mx={1} fontSize="16px">
-          Sinan Topal
+          {userName}
         </Heading>
         <Text mx={1} fontSize="12px" noOfLines={2}>
-          Lorem ipsum dolor sit amet ama yine de emin deilim gdghawd awdjfwadgawd dahwfdawhd
-          awhdwavdhwav .d
+          {userDesc}
         </Text>
       </Flex>
     </Flex>
