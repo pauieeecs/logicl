@@ -4,7 +4,7 @@ type Props = {
   text: string
   category: string
 }
-const Content: React.FC<Props> = ({ title, text ,category}) => {
+const Content: React.FC<Props> = ({ title, text, category }) => {
   return (
     <Flex direction="column" position="relative">
       <Heading letterSpacing={1} fontWeight="bold" size="xs">

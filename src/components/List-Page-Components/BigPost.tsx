@@ -41,7 +41,10 @@ const BigPost: React.FC<Props> = ({ category, title, text, date }) => {
             >
               <Text>@mehmet sinan topal</Text>
               <Flex hidden={!showMore ? true : false}>
-                <ProfileCard />
+                <ProfileCard
+                  userName="Sinan Topal"
+                  userDesc="lorem ipsum dolor sit amet constectur adipiscing"
+                />
               </Flex>
             </Flex>
           </Flex>
