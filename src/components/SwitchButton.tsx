@@ -13,9 +13,8 @@ const Buttons: React.FC<Props> = ({ button1, button2, active, setActive }) => {
       bgColor="#fff"
       border="1px solid #1A202C"
       borderRadius="24px"
-      w="250px"
+      w="251px"
     >
-      {console.log(active)}
       <Button
         w="125px"
         mr="-px"

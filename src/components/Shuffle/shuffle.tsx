@@ -13,8 +13,8 @@ const Shuffle: React.FC = () => {
       my={10}
       direction="column"
       p="20px 30px"
-      w="1000px"
-      h="700px"
+      w="1080px"
+      h="720px"
       bgColor="#E6F8FD"
       borderRadius={15}
       position="relative"
