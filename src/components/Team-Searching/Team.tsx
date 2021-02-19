@@ -1,4 +1,4 @@
-import { Flex, Text, Heading, Button, AvatarGroup, Avatar } from "@chakra-ui/react"
+import { Flex, Text, Heading, Button, Avatar, Stack } from "@chakra-ui/react"
 
 interface Props {
   teamName: string
@@ -33,12 +33,22 @@ const Team: React.FC<Props> = ({ name, avatar, teamText, teamCategory, teamName 
       <Button bottom="10px" position="absolute" bgColor="#20D79E" color="#fff" h={8} fontSize="sm">
         Başvur
       </Button>
-      <AvatarGroup position="absolute" bottom="10px" right="15px" size="sm" max={3}>
-        <Avatar name={name} src={avatar} />
-        <Avatar name={name} src={avatar} />
-        <Avatar name={name} src={avatar} />
-        <Avatar name={name} src={avatar} />
-      </AvatarGroup>
+      <Stack direction="row" position="absolute" bottom="10px" right="15px" spacing="-7px">
+        <Avatar zIndex="3" size="sm" name={name} src={avatar} />
+        <Avatar zIndex="2" size="sm" name={name} src={avatar} />
+        <Avatar zIndex="1" size="sm" name={name} src={avatar} />
+        <Text
+          d="flex"
+          justifyContent="center"
+          alignItems="center"
+          width="32px"
+          height="32px"
+          borderRadius="16px"
+          bgColor="#E2E8F0"
+        >
+          +3
+        </Text>
+      </Stack>
     </Flex>
   )
 }
