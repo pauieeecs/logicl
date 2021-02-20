@@ -22,7 +22,7 @@ const BigPost: React.FC<Props> = ({ category, title, text, date }) => {
       bgColor="#E6F8FD"
       _hover={{ bgColor: "#C3F2FF", cursor: "pointer" }}
     >
-      <VoteButton />
+      <VoteButton right="16px" top="-24px" up={55} down={55} />
       <Flex mx={2} direction="column" justifyContent="space-between">
         <Text my={1} fontWeight="bold">
           {category}
@@ -41,7 +41,10 @@ const BigPost: React.FC<Props> = ({ category, title, text, date }) => {
             >
               <Text>@mehmet sinan topal</Text>
               <Flex hidden={!showMore ? true : false}>
-                <ProfileCard />
+                <ProfileCard
+                  userName="Sinan Topal"
+                  userDesc="lorem ipsum dolor sit amet constectur adipiscing"
+                />
               </Flex>
             </Flex>
           </Flex>

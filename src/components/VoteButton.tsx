@@ -1,8 +1,14 @@
 import { Button, ButtonGroup, Image, Text } from "@chakra-ui/react"
-
-const VoteButton: React.FC = () => {
+type Props = {
+  up: number
+  down: number
+  right: string
+  top: string
+}
+// right="16px" top="-24px"
+const VoteButton: React.FC<Props> = ({ right, top, up, down }) => {
   return (
-    <ButtonGroup spacing={4} position="absolute" right="16px" top="-24px">
+    <ButtonGroup spacing={4} position="absolute" right={right} top={top}>
       <Button
         color="white"
         bgColor="#20D79E"
@@ -13,7 +19,7 @@ const VoteButton: React.FC = () => {
         justifyContent="center"
         _hover={{ bgColor: "green.600" }}
       >
-        <Image src="/up.svg" mb={1} /> <Text>21</Text>
+        <Image src="/up.svg" mb={1} /> <Text>{up}</Text>
       </Button>
       <Button
         color="white"
@@ -25,7 +31,7 @@ const VoteButton: React.FC = () => {
         justifyContent="center"
         _hover={{ bgColor: "red.700" }}
       >
-        <Text>21</Text> <Image src="/down.svg" mt={1} />
+        <Text>{down}</Text> <Image src="/down.svg" mt={1} />
       </Button>
     </ButtonGroup>
   )

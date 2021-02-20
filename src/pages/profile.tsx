@@ -1,12 +1,14 @@
-import { Button, ButtonGroup, Flex, Image } from "@chakra-ui/react"
+import { Flex, Image } from "@chakra-ui/react"
 import Container from "../components/Container"
 import React, { useState } from "react"
 import Idea from "../components/profile/Idea"
 import Comment from "../components/profile/Comment"
 import ProfileComponent from "../components/profile/Profile"
+import SwitchButton from "../components/SwitchButton"
 
-const Profile: React.FC = () => {
+const ProfilePage: React.FC = () => {
   const [isActive, setIsActive] = useState<boolean>(true)
+
   return (
     <Container bgSrc="/wave1.svg">
       <ProfileComponent
@@ -29,61 +31,12 @@ const Profile: React.FC = () => {
         direction="column"
         align="center"
       >
-        <ButtonGroup
-          mt={2}
-          spacing={0}
-          bgColor="#fff"
-          border="1px solid #C1C1C1"
-          borderRadius="24px"
-          w="250px"
-        >
-          <Button
-            w="125px"
-            mr="-px"
-            colorScheme="#C1C1C1"
-            borderRadius="39px"
-            isActive={isActive}
-            onClick={() => setIsActive(!isActive)}
-            isDisabled={isActive}
-            _disabled={{
-              bg: "#01BAEF",
-              textColor: "#fff",
-            }}
-            _hover={{
-              bg: "#01BAEF",
-            }}
-            _active={{
-              bg: "#01BAEF",
-              textColor: "#fff",
-            }}
-            textColor="#003848"
-          >
-            Ideas
-          </Button>
-          <Button
-            w="125px"
-            mr="-px"
-            colorScheme="#C1C1C1"
-            borderRadius="39px"
-            isActive={!isActive}
-            isDisabled={!isActive}
-            _disabled={{
-              bg: "#01BAEF",
-              textColor: "#fff",
-            }}
-            _hover={{
-              bg: "#01BAEF",
-            }}
-            onClick={() => setIsActive(!isActive)}
-            _active={{
-              bg: "#01BAEF",
-              textColor: "#fff",
-            }}
-            textColor="#003848"
-          >
-            Comments
-          </Button>
-        </ButtonGroup>
+        <SwitchButton
+          button1="Ideas"
+          button2="Comments"
+          active={isActive}
+          setActive={setIsActive}
+        />
         {isActive ? (
           <>
             <Idea
@@ -210,4 +163,4 @@ const Profile: React.FC = () => {
   )
 }
 
-export default Profile
+export default ProfilePage

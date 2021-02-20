@@ -4,10 +4,11 @@ import ProfileCard from "../ProfileCard"
 type Props = {
   title: string
   text: string
-  vote: number
+  upVote: number
+  totalVote: number
   date: string
 }
-const SmallPost: React.FC<Props> = ({ title, text, vote, date }) => {
+const SmallPost: React.FC<Props> = ({ title, text, upVote, totalVote, date }) => {
   const [showMore, setShowMore] = useState(false)
   return (
     <Flex
@@ -27,7 +28,7 @@ const SmallPost: React.FC<Props> = ({ title, text, vote, date }) => {
         <Flex pl={2} alignItems="center" position="absolute" align="center" right="8px">
           <Image boxSize={4} src="/up-small.svg" />
           <Text fontWeight="500" textAlign="center" pl={1} fontSize="12px">
-            21
+            {upVote}
           </Text>
         </Flex>
       </Flex>
@@ -44,10 +45,13 @@ const SmallPost: React.FC<Props> = ({ title, text, vote, date }) => {
         >
           <Text>@mehmet sinan topal</Text>
           <Flex hidden={!showMore ? true : false} position="relative">
-            <ProfileCard />
+            <ProfileCard
+              userName="Sinan Topal"
+              userDesc="lorem ipsum dolor sit amet constectur adipiscing"
+            />
           </Flex>
         </Flex>
-        {vote} votes / {date}
+        {totalVote} votes / {date}
       </Flex>
     </Flex>
   )

@@ -1,5 +1,5 @@
 import Head from "next/head"
-import List from "../pages/list"
+import List from "./explore"
 
 const Home: React.FC = () => {
   return (
