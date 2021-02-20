@@ -12,18 +12,18 @@ import { useRouter } from "next/dist/client/router"
 import React, { useMemo, useState } from "react"
 import Container from "../components/Container"
 import { useAuth } from "../context/authentication"
-import { UserSignin, UserSignup } from "../types/authTypes"
+import { UserSigninEmail, UserSignupEmail } from "../types/authTypes"
 import { getYearsArray } from "../utils/getYearList"
 
 const Auth: React.FC = () => {
-  const { user, signin, signup, loading, signinWithGoogle, signinWithGithub } = useAuth()
+  const { user, signin, signup, loading, signinWithProvider } = useAuth()
 
   const router = useRouter()
 
   const yearsArray = useMemo(getYearsArray, [getYearsArray])
 
-  const [signinData, setSigninData] = useState<UserSignin>({ email: "", password: "" })
-  const [signupData, setSignupData] = useState<UserSignup>({
+  const [signinData, setSigninData] = useState<UserSigninEmail>({ email: "", password: "" })
+  const [signupData, setSignupData] = useState<UserSignupEmail>({
     email: "",
     password: "",
     fullName: "",
@@ -87,7 +87,7 @@ const Auth: React.FC = () => {
             <Input
               focusBorderColor="#B3EBFA"
               borderRadius={6}
-              placeholder="john@example.com"
+              placeholder="ornek@mail.com"
               type="email"
               id="signin-mail"
               value={signinData.email}
@@ -99,7 +99,7 @@ const Auth: React.FC = () => {
             <Input
               focusBorderColor="#B3EBFA"
               borderRadius={6}
-              placeholder="johnloveskatie2021"
+              placeholder="Sifre123"
               type="password"
               id="signin-password"
               value={signinData.password}
@@ -131,7 +131,7 @@ const Auth: React.FC = () => {
             border="2px solid #C3F2FF"
             _hover={{ backgroundColor: "#C6F3FF" }}
             isLoading={loading}
-            onClick={() => signinWithGithub()}
+            onClick={() => signinWithProvider(true)}
           >
             GitHub ile giriş yap
           </Button>
@@ -147,7 +147,7 @@ const Auth: React.FC = () => {
             border="2px solid #C3F2FF"
             _hover={{ backgroundColor: "#C6F3FF" }}
             isLoading={loading}
-            onClick={() => signinWithGoogle()}
+            isDisabled
           >
             Google ile giriş yap
           </Button>
@@ -173,7 +173,7 @@ const Auth: React.FC = () => {
             <Input
               focusBorderColor="#B3EBFA"
               borderRadius={6}
-              placeholder="john@example.com"
+              placeholder="ornek@mail.com"
               type="email"
               id="signup-mail"
               onChange={(e) => setSignupData({ ...signupData, email: e.target.value })}
@@ -185,7 +185,7 @@ const Auth: React.FC = () => {
             <Input
               focusBorderColor="#B3EBFA"
               borderRadius={6}
-              placeholder="johnloveskatie2021"
+              placeholder="Sifre123"
               type="password"
               id="signup-password"
               onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
@@ -246,7 +246,7 @@ const Auth: React.FC = () => {
             border="2px solid #C3F2FF"
             _hover={{ backgroundColor: "#C6F3FF" }}
             isLoading={loading}
-            onClick={() => signinWithGithub()}
+            onClick={() => signinWithProvider(true)}
           >
             GitHub ile kayıt ol
           </Button>
@@ -262,7 +262,7 @@ const Auth: React.FC = () => {
             border="2px solid #C3F2FF"
             _hover={{ backgroundColor: "#C6F3FF" }}
             isLoading={loading}
-            onClick={() => signinWithGoogle()}
+            isDisabled
           >
             Google ile kayıt ol
           </Button>
