@@ -8,7 +8,6 @@ import SwitchButton from "../components/SwitchButton"
 
 const ProfilePage: React.FC = () => {
   const [isActive, setIsActive] = useState<boolean>(true)
-
   return (
     <Container bgSrc="/wave1.svg">
       <ProfileComponent
