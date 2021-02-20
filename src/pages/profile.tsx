@@ -3,15 +3,14 @@ import Container from "../components/Container"
 import React, { useState } from "react"
 import Idea from "../components/profile/Idea"
 import Comment from "../components/profile/Comment"
-import Profile from "../components/profile/Profile"
+import ProfileComponent from "../components/profile/Profile"
 import SwitchButton from "../components/SwitchButton"
 
 const ProfilePage: React.FC = () => {
-  const [isActive, setIsActive] = useState(true)
-
+  const [isActive, setIsActive] = useState<boolean>(true)
   return (
     <Container bgSrc="/wave1.svg">
-      <Profile
+      <ProfileComponent
         name="Kerem Esen"
         location="Manisa"
         job="Developer"
