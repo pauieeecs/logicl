@@ -49,19 +49,19 @@ const Comment: React.FC<Props> = ({
           {text}
         </Text>
       </Flex>
-      <Flex w="100%" h="100%" direction="row">
-        <Flex w="4px" h="112px" bgColor="#01BAEF" m={5}></Flex>
-        <Flex direction="row" bgColor="#CAECF5" w="1200px" h="100px" borderRadius="8px" mt={5}>
+      <Flex w="100%" h="100%" direction="row" align="normal">
+        <Flex w="4px" h="100px" bgColor="#01BAEF" m={5}></Flex>
+        <Flex direction="row" bgColor="#CAECF5" w="1200px" h="min" borderRadius="8px" mt={5}>
           <Image src="/up-button.svg" position="absolute" />
           <Flex direction="column" mt={2} ml={4}>
-            <Text textColor="#003848" noOfLines={3} m={1}>
+            <Text textColor="#003848" noOfLines={3} m={1} fontSize="sm">
               {commentText}
             </Text>
             <Text textColor="#9C9C9C" fontSize="xs">
               {commentAuthorFullName} {commentCreatedAt}
             </Text>
           </Flex>
-          <Flex direction="column" align="center" justify="center" h="100px" w="50px" mx={4}>
+          <Flex direction="column" align="center" justify="center" h="auto" w="50px" mx={4}>
             <Image src="/comment-up.svg" />
             <Text textColor="#003848" fontSize="sm">
               13
