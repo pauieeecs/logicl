@@ -11,7 +11,7 @@ type Props = {
 }
 
 const BigPost: React.FC<Props> = ({ category, title, text, date }) => {
-  const [showMore, setShowMore] = useState(false)
+  const [showMore, setShowMore] = useState<boolean>(false)
   return (
     <Flex
       w="100%"

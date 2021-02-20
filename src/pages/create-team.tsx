@@ -13,9 +13,9 @@ import { useState } from "react"
 import Container from "../components/Container"
 
 const CreateTeam: React.FC = () => {
-  const [teamName, setTeamName] = useState("")
-  const [desc, setDesc] = useState("")
-  const [category, setCategory] = useState("")
+  const [teamName, setTeamName] = useState<string>("")
+  const [desc, setDesc] = useState<string>("")
+  const [category, setCategory] = useState<string>("")
 
   return (
     <Container bgSrc="/wave3.svg">

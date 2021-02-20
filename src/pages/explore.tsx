@@ -5,7 +5,7 @@ import List from "../components/List-Page-Components/list"
 import Shuffle from "../components/Shuffle/shuffle"
 
 const Explore: React.FC = () => {
-  const [isActive, setIsActive] = useState(true)
+  const [isActive, setIsActive] = useState<boolean>(true)
 
   return (
     <Container bgSrc="/wave1.svg">

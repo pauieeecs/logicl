@@ -11,21 +11,22 @@ import {
 } from "@chakra-ui/react"
 import { useState } from "react"
 import Container from "../components/Container"
+import ImageUpload from "../components/Create-Post/ImageUpload"
 
 const CreatePost: React.FC = () => {
-  const [title, setTitle] = useState("")
-  const [category, setCategory] = useState("")
-  const [desc, setDesc] = useState("")
+  const [title, setTitle] = useState<string>("")
+  const [category, setCategory] = useState<string>("")
+  const [desc, setDesc] = useState<string>("")
 
   return (
     <Container bgSrc="/wave1.svg">
       <Flex
-        w="960px"
+        w="720px"
         minH="480px"
         bgColor="#E6F8FD"
         borderRadius="10px"
         border="5px solid #C3F2FF"
-        my="auto"
+        my={8}
         px="24px"
         py="8px"
         direction="column"
@@ -37,7 +38,7 @@ const CreatePost: React.FC = () => {
         </Heading>
         <FormControl mt={6}>
           <Flex direction="row">
-            <Flex direction="column" w="50%">
+            <Flex direction="column" w="100%">
               <Flex direction="column">
                 <FormLabel>Başlık</FormLabel>
                 <Input
@@ -72,27 +73,24 @@ const CreatePost: React.FC = () => {
                   placeholder="Minimum 100 karakter"
                 ></Textarea>
               </Flex>
-            </Flex>
-
-            <Flex w="50%" minH="100%" borderRadius="10px" ml={3} direction="column">
-              <Flex>
-                <FormLabel m="1">Dosya Yükle</FormLabel>
-                <Text fontSize="12px">*opsiyonel</Text>
-              </Flex>
-              <Flex
-                border="1px solid gray"
-                minH="90%"
-                alignItems="center"
-                justifyContent="center"
-                direction="column"
-                borderRadius="10px"
-              >
-                Resim yükleme alanı
+              <Flex w="100%" borderRadius="10px" mt={6} direction="column">
+                <Flex>
+                  <FormLabel my="1" mr="4px">
+                    Fotoğraf Yükle
+                  </FormLabel>
+                  <Text h="24px" my="1" color="gray">
+                    (En fazla 5 adet)
+                  </Text>
+                  <Text fontSize="12px" color="gray">
+                    *opsiyonel
+                  </Text>
+                </Flex>
+                <ImageUpload />
               </Flex>
             </Flex>
           </Flex>
 
-          <Flex mt={2} justifyContent="flex-end">
+          <Flex mt={4} mb={2} justifyContent="flex-end">
             <Button
               disabled={desc.length >= 100 && title.length >= 8 && category !== "" ? false : true}
               bgColor="#20D79E"

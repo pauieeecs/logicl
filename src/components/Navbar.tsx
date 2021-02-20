@@ -17,7 +17,7 @@ const Navbar: React.FC = () => {
         </Text>
 
         <HStack spacing={4}>
-          <Link href="/addidea">
+          <Link href="/create-post">
             <Image cursor="pointer" boxSize={6} src="/plus.svg" />
           </Link>
           <Link href="/notifications">
