@@ -18,6 +18,7 @@ const Shuffle: React.FC = () => {
       bgColor="#E6F8FD"
       borderRadius={15}
       position="relative"
+      boxShadow="md"
     >
       <Flex position="relative" direction="column">
         <Content

@@ -6,7 +6,7 @@ type Props = {
 const Comment: React.FC<Props> = ({ text, rating }) => {
   return (
     <Flex w="100%" bgColor="#CAECF5" py={3} px={5} borderRadius={15}>
-      <Text noOfLines={3} letterSpacing={2} fontSize="xs">
+      <Text noOfLines={3} letterSpacing={1} fontSize="xs">
         {text}
       </Text>
       <Flex direction="column" justify="center" align="center" px={4}>

@@ -29,6 +29,7 @@ const CreateTeam: React.FC = () => {
           </Text>
         </Flex>
         <Flex
+          boxShadow="md"
           w="720px"
           minH="480px"
           my={24}

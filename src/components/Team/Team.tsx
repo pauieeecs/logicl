@@ -10,7 +10,15 @@ type Props = {
 
 const Team: React.FC<Props> = ({ teamCreatedAt, teamDescription, teamName }) => {
   return (
-    <Flex w="976px" h="539px" bgColor="#E6F8FD" borderRadius="8px" my={6} direction="column">
+    <Flex
+      boxShadow="md"
+      w="976px"
+      h="539px"
+      bgColor="#E6F8FD"
+      borderRadius="8px"
+      my={6}
+      direction="column"
+    >
       <Flex justify="flex-end" w="100%" h="100%">
         <Button
           bgColor="#20D79E"

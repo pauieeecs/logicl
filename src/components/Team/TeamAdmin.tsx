@@ -13,7 +13,15 @@ const TeamAdmin: React.FC<Props> = ({ teamCreatedAt, teamDescription, teamName }
   const [desc, setDesc] = useState(teamDescription)
 
   return (
-    <Flex w="976px" h="539px" bgColor="#E6F8FD" borderRadius="8px" my={6} direction="column">
+    <Flex
+      boxShadow="md"
+      w="976px"
+      h="539px"
+      bgColor="#E6F8FD"
+      borderRadius="8px"
+      my={6}
+      direction="column"
+    >
       <Flex justify="center" align="center" direction="column">
         <Flex
           justify="center"

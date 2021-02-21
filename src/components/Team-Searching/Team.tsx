@@ -11,6 +11,7 @@ interface Props {
 const Team: React.FC<Props> = ({ name, avatar, teamText, teamCategory, teamName }) => {
   return (
     <Flex
+      boxShadow="md"
       paddingX="20px"
       paddingTop="10px"
       paddingBottom="50px"

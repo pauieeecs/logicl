@@ -1,4 +1,4 @@
-import { Button, Flex, Heading } from "@chakra-ui/react"
+import { Box, Button, Flex, Heading } from "@chakra-ui/react"
 import React from "react"
 import Container from "../components/Container"
 import Appliers from "../components/Team/Appliers"
@@ -19,7 +19,14 @@ const teamAdmin: React.FC = () => {
             yunus emre mevlana aşık veysel"
         teamCreatedAt="04.17 19.02.2021"
       />
-      <Flex w="976px" h="100%" bgColor="#E6F8FD" borderRadius="8px" direction="column">
+      <Flex
+        boxShadow="md"
+        w="976px"
+        h="100%"
+        bgColor="#E6F8FD"
+        borderRadius="8px"
+        direction="column"
+      >
         <Button
           bgColor="#01BAEF"
           w="120px"
@@ -36,7 +43,7 @@ const teamAdmin: React.FC = () => {
         <Heading textColor="#003848" m={6}>
           Members
         </Heading>
-        <Flex borderBottom="3px solid #000" direction="column" w="100%">
+        <Flex direction="column" w="100%">
           <MemberAdmin
             memberName="Kerem Esen"
             memberBio="yazilim ögrenip her gün 5l su içen sabah 6 da kalkıp web askiyla yanıp tutusan bir genc"
@@ -47,6 +54,7 @@ const teamAdmin: React.FC = () => {
             memberBio="yazilim ögrenip her gün 5l su içen sabah 6 da kalkıp web askiyla yanıp tutusan bir genc nt nt nt nt"
           />
         </Flex>
+        <Box w="95%" alignSelf="center" h="2px" bgColor="black" />
         <Heading textColor="#003848" m={6}>
           Appliers
         </Heading>
