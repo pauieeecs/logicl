@@ -8,7 +8,6 @@ const ImageUpload: React.FC = () => {
 
   const onChange = (imageList): void => {
     setImages(imageList)
-    console.log(imageList)
   }
 
   return (
