@@ -13,6 +13,7 @@ type Props = {
 const Profile: React.FC<Props> = ({ name, location, job, bio, joinedAt }) => {
   return (
     <Flex
+    boxShadow="md"
       w="976px"
       borderRadius="8px"
       h="539px"

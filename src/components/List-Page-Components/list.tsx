@@ -33,6 +33,7 @@ const List: React.FC = () => {
           h="940px"
           mt={12}
           bgColor="#E6F8FD"
+          boxShadow="md"
         >
           <Flex direction="column" py={4} borderBottom="2px solid black" align="center">
             <Heading my={2} fontSize="20px">

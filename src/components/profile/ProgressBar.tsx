@@ -24,13 +24,13 @@ const ProgressBar: React.FC<Props> = ({ upVote, downVote }) => {
   return (
     <Flex direction="column">
       <Flex direction="row" align="center" justify="center">
-        <Image boxSize={2} src="/profile-up.svg" color="red"></Image>
-        <Text fontWeight="600" fontSize="xs" mr={12}>
-          {upVote}
-        </Text>
         <Image boxSize={2} src="/profile-down.svg"></Image>
-        <Text fontWeight="600" fontSize="xs">
+        <Text fontWeight="600" fontSize="xs" mr={12}>
           {downVote}
+        </Text>
+        <Image boxSize={2} src="/profile-up.svg"></Image>
+        <Text fontWeight="600" fontSize="xs">
+          {upVote}
         </Text>
       </Flex>
       <Progress

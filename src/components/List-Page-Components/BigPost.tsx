@@ -14,6 +14,7 @@ const BigPost: React.FC<Props> = ({ category, title, text, date }) => {
   const [showMore, setShowMore] = useState<boolean>(false)
   return (
     <Flex
+      boxShadow="md"
       w="100%"
       h="266px"
       position="relative"
