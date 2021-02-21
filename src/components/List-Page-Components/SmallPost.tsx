@@ -9,7 +9,7 @@ type Props = {
   date: string
 }
 const SmallPost: React.FC<Props> = ({ title, text, upVote, totalVote, date }) => {
-  const [showMore, setShowMore] = useState(false)
+  const [showMore, setShowMore] = useState<boolean>(false)
   return (
     <Flex
       w="250px"

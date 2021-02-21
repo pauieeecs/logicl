@@ -3,11 +3,11 @@ import { useState } from "react"
 import Container from "../components/Container"
 
 const ApplyTeam: React.FC = () => {
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [phoneNumber, setPhoneNumber] = useState("")
-  const [desc, setDesc] = useState("")
-  const [city, setCity] = useState("")
+  const [name, setName] = useState<string>("")
+  const [email, setEmail] = useState<string>("")
+  const [phoneNumber, setPhoneNumber] = useState<string>("")
+  const [desc, setDesc] = useState<string>("")
+  const [city, setCity] = useState<string>("")
 
   const valid = (
     name: string,
