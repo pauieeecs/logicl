@@ -38,6 +38,7 @@ const ApplyTeam: React.FC = () => {
           </Heading>
         </Flex>
         <FormControl
+          boxShadow="md"
           my={24}
           w="720px"
           minH="480px"

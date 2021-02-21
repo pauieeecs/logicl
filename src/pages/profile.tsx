@@ -29,6 +29,7 @@ const ProfilePage: React.FC = () => {
         bgColor="#E6F8FD"
         direction="column"
         align="center"
+        boxShadow="md"
       >
         <SwitchButton
           button1="Ideas"

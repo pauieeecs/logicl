@@ -18,7 +18,14 @@ const team: React.FC = () => {
             yunus emre mevlana aşık veysel"
         teamCreatedAt="04.17 19.02.2021"
       />
-      <Flex w="976px" h="493px" bgColor="#E6F8FD" borderRadius="8px" direction="column">
+      <Flex
+        boxShadow="md"
+        w="976px"
+        h="493px"
+        bgColor="#E6F8FD"
+        borderRadius="8px"
+        direction="column"
+      >
         <Heading textColor="#003848" m={6}>
           Members
         </Heading>

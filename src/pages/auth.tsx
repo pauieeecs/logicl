@@ -66,6 +66,7 @@ const Auth: React.FC = () => {
     <Container bgSrc="/wave1.svg">
       <Flex width="1080px" height="100%" flexDirection="row" justifyContent="space-between" py={16}>
         <Flex
+          boxShadow="md"
           flexDirection="column"
           flex="1"
           borderRadius={6}
@@ -153,6 +154,7 @@ const Auth: React.FC = () => {
           </Button>
         </Flex>
         <Flex
+          boxShadow="md"
           flexDirection="column"
           flex="1"
           borderRadius={6}
