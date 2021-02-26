@@ -1,4 +1,4 @@
-import { Avatar, Button, Flex, Image, Text } from "@chakra-ui/react"
+import { Avatar, Button, Flex, Text } from "@chakra-ui/react"
 import React from "react"
 
 type Props = {

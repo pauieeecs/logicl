@@ -1,4 +1,4 @@
-import { Avatar, Button, Flex, Image, Text } from "@chakra-ui/react"
+import { Avatar, Button, Flex, Text } from "@chakra-ui/react"
 import React from "react"
 
 type Props = {
@@ -36,7 +36,7 @@ const Appliers: React.FC<Props> = ({ appliersName, appliersDesc }) => {
             textColor="#fff"
             mb={2}
             fontSize="sm"
-            _hover={{bgColor: "#ff352e"}}
+            _hover={{ bgColor: "#ff352e" }}
           >
             SİL
           </Button>
