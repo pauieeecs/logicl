@@ -1,5 +1,5 @@
 import { CalendarIcon } from "@chakra-ui/icons"
-import { Avatar, Flex, Heading, Text } from "@chakra-ui/react"
+import { Avatar, Flex, Heading, Spinner, Text } from "@chakra-ui/react"
 import React from "react"
 
 type Props = {
@@ -8,12 +8,14 @@ type Props = {
   job: string
   bio: string
   joinedAt: string
+  loading: boolean
+  photoUrl: string
 }
 
-const Profile: React.FC<Props> = ({ name, location, job, bio, joinedAt }) => {
+const Profile: React.FC<Props> = ({ name, location, job, bio, joinedAt, loading, photoUrl }) => {
   return (
     <Flex
-    boxShadow="md"
+      boxShadow="md"
       w="976px"
       borderRadius="8px"
       h="539px"
@@ -21,38 +23,44 @@ const Profile: React.FC<Props> = ({ name, location, job, bio, joinedAt }) => {
       my={6}
       direction="column"
     >
-      <Flex justify="center" align="center" direction="column">
-        <Flex
-          justify="center"
-          align="center"
-          w="140px"
-          h="140px"
-          borderRadius="325px"
-          backgroundColor="#01BAEF"
-          mt={8}
-        >
-          <Avatar size="2xl" name={name} src="https://bit.ly/dan-abramov" />
-        </Flex>
+      {loading ? (
+        <Spinner size="lg" color="blue" />
+      ) : (
+        <>
+          <Flex justify="center" align="center" direction="column">
+            <Flex
+              justify="center"
+              align="center"
+              w="140px"
+              h="140px"
+              borderRadius="325px"
+              backgroundColor="#01BAEF"
+              mt={8}
+            >
+              <Avatar size="2xl" name={name} src={photoUrl} />
+            </Flex>
 
-        <Heading textColor="#003848" my={6}>
-          {name}
-        </Heading>
-        <Text textColor="#015D78" fontSize="24px">
-          {location}
-        </Text>
-        <Text textColor="#015D78" fontSize="24px">
-          {job}
-        </Text>
-        <Text textColor="#015D78" fontSize="24px" mx={24} noOfLines={2}>
-          {bio}
-        </Text>
-      </Flex>
-      <Flex align="flex-end" justify="flex-end" h="100%" mr="8px">
-        <Text textColor="#91AEB7">
-          <CalendarIcon mr="6px" />
-          joined in {joinedAt}
-        </Text>
-      </Flex>
+            <Heading textColor="#003848" my={6}>
+              {name}
+            </Heading>
+            <Text textColor="#015D78" fontSize="24px">
+              {location}
+            </Text>
+            <Text textColor="#015D78" fontSize="24px">
+              {job}
+            </Text>
+            <Text textColor="#015D78" fontSize="24px" mx={24} noOfLines={2}>
+              {bio}
+            </Text>
+          </Flex>
+          <Flex align="flex-end" justify="flex-end" h="100%" mr="8px">
+            <Text textColor="#91AEB7">
+              <CalendarIcon mr="6px" />
+              joined in {joinedAt}
+            </Text>
+          </Flex>
+        </>
+      )}
     </Flex>
   )
 }

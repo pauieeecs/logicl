@@ -1,27 +1,50 @@
-import { Flex, Image } from "@chakra-ui/react"
+import { Flex, Image, Spinner } from "@chakra-ui/react"
 import Container from "../components/Container"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import Idea from "../components/profile/Idea"
 import Comment from "../components/profile/Comment"
 import ProfileComponent from "../components/profile/Profile"
 import SwitchButton from "../components/SwitchButton"
+import { useAuth } from "../context/authentication"
+import firebase from "../libs/firebase"
+import { User } from "../types/user"
 
 const ProfilePage: React.FC = () => {
   const [isActive, setIsActive] = useState<boolean>(true)
+  const { user } = useAuth()
+  const [userData, setUserData] = useState<User>()
+  const [userLoading, setUserLoading] = useState<boolean>(true)
+
+  useEffect(() => {
+    setUserLoading(true)
+    const unsub = firebase
+      .firestore()
+      .collection("user")
+      .doc(user?.userId)
+      .onSnapshot((res) => {
+        const data = res.data()
+        setUserData(data)
+        setUserLoading(false)
+      })
+
+    return () => unsub()
+  }, [user?.userId])
   return (
     <Container bgSrc="/wave1.svg">
-      <ProfileComponent
-        name="Kerem Esen"
-        location="Manisa"
-        job="Developer"
-        bio="Frontentçi Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tellus justo, maximus id
-          gravida vitae, placerat vel dui. Sed ornare iaculis sagittis. Integer scelerisque tortor
-          id est elementum, in iaculis urna sollicitudin. Aenean sit amet vehicula libero, nec
-          sodales ipsum. Nulla pharetra porta libero. Donec consectetur diam ut massa euismod
-          convallis. Duis blandit interdum tempor. Ut sed elementum arcu, id posuere nibh. Nullam
-          pretium euismod purus, ut ultrices leo hendrerit scelerisque."
-        joinedAt="17.02.2021"
-      />
+      {userLoading ? (
+        <Spinner size="lg" color="blue" m={8} />
+      ) : (
+        <ProfileComponent
+          name={userData.fullName}
+          location={userData.city !== "" ? `${userData.city}/${userData.country}` : ""}
+          job={userData.jobTitle}
+          bio={userData.bio}
+          joinedAt={new Date(userData.joinedAt.seconds * 1000).toLocaleDateString("tr-TR")}
+          loading={userLoading}
+          photoUrl={userData.photoUrl}
+        />
+      )}
+
       <Flex
         w="976px"
         h="726px"
