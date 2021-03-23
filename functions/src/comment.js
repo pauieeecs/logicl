@@ -52,18 +52,18 @@ commentApp.post("/create", async (req, res) => {
   };
   try {
     await admin
-      .firestore()
-      .collection("idea-full")
-      .doc(shortIdea.id)
-      .collection("comment")
-      .add(comment);
+        .firestore()
+        .collection("idea-full")
+        .doc(shortIdea.id)
+        .collection("comment")
+        .add(comment);
     // TODO: create comment-idea mixed document under user document
     await admin
-      .firestore()
-      .collection("user")
-      .doc(data.authorId)
-      .collection("comment")
-      .add(commentUnderUserDocument);
+        .firestore()
+        .collection("user")
+        .doc(data.authorId)
+        .collection("comment")
+        .add(commentUnderUserDocument);
 
     res.status(200).send({
       success: true,

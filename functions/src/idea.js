@@ -88,10 +88,10 @@ ideaApp.post("/create", async (req, res) => {
     };
 
     await admin
-      .firestore()
-      .collection("user")
-      .doc(data.authorUserId)
-      .update(freshUserData, { merge: true });
+        .firestore()
+        .collection("user")
+        .doc(data.authorUserId)
+        .update(freshUserData, {merge: true});
     const isLevelUp = userData.level < freshUserData.level;
 
     res.status(200).send({
