@@ -27,9 +27,9 @@ const Auth: React.FC = () => {
     email: "",
     password: "",
     fullName: "",
-    birthDay: 0,
-    birthMonth: 0,
-    birthYear: 0,
+    birthDay: "",
+    birthMonth: "",
+    birthYear: "",
   })
 
   const handleSignin = (): void => {
@@ -47,7 +47,9 @@ const Auth: React.FC = () => {
       password.length < 5 ||
       email.length < 6 ||
       fullName.length < 3 ||
-      birthYear === 0
+      birthYear === "" ||
+      birthDay === "" ||
+      birthMonth === ""
     )
       return
 
@@ -56,9 +58,9 @@ const Auth: React.FC = () => {
       email: "",
       password: "",
       fullName: "",
-      birthYear: 0,
-      birthMonth: 0,
-      birthDay: 0,
+      birthYear: "",
+      birthMonth: "",
+      birthDay: "",
     })
   }
 
@@ -200,9 +202,8 @@ const Auth: React.FC = () => {
               <Select
                 focusBorderColor="#B3EBFA"
                 placeholder="Gün"
-                onChange={(e) =>
-                  setSignupData({ ...signupData, birthDay: parseInt(e.target.value) })
-                }
+                color={signupData.birthDay === "" ? "gray.400" : "black"}
+                onChange={(e) => setSignupData({ ...signupData, birthDay: e.target.value })}
                 value={signupData.birthDay}
               >
                 {day.map((day) => (
@@ -215,9 +216,8 @@ const Auth: React.FC = () => {
                 ml={2}
                 focusBorderColor="#B3EBFA"
                 placeholder="Ay"
-                onChange={(e) =>
-                  setSignupData({ ...signupData, birthMonth: parseInt(e.target.value) })
-                }
+                color={signupData.birthMonth === "" ? "gray.400" : "black"}
+                onChange={(e) => setSignupData({ ...signupData, birthMonth: e.target.value })}
                 value={signupData.birthMonth}
               >
                 {month.map((month) => (
@@ -230,9 +230,8 @@ const Auth: React.FC = () => {
                 ml={2}
                 focusBorderColor="#B3EBFA"
                 placeholder="Yıl"
-                onChange={(e) =>
-                  setSignupData({ ...signupData, birthYear: parseInt(e.target.value) })
-                }
+                color={signupData.birthYear === "" ? "gray.400" : "black"}
+                onChange={(e) => setSignupData({ ...signupData, birthYear: e.target.value })}
                 value={signupData.birthYear}
               >
                 {yearsArray.map((year) => (

@@ -17,6 +17,6 @@ export default function slugGenerator(text: string): string {
       .replace(/[-]+/gi, "-") // trim repeated dashes
       .toLowerCase() +
     "-" +
-    Date.now()
+    Math.floor(Math.random() * 100)
   )
 }

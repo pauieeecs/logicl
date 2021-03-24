@@ -8,15 +8,81 @@ import {
   Select,
   Text,
   Textarea,
+  useToast,
 } from "@chakra-ui/react"
 import { useState } from "react"
 import Container from "../components/Container"
 import ImageUpload from "../components/ImageUpload"
+import { useAuth } from "../context/authentication"
+import slugGenerator from "../utils/slugGenerator"
+
+type Post = {
+  title: string
+  fullDesc: string
+  shortDesc: string
+  category: string
+  slug: string
+  authorUserId: string
+  mediaUrl: string
+  teamName: string
+  teamSlug: string
+}
 
 const CreatePost: React.FC = () => {
   const [title, setTitle] = useState<string>("")
   const [category, setCategory] = useState<string>("")
   const [desc, setDesc] = useState<string>("")
+  const [shortDesc, setShortDesc] = useState<string>("")
+  const [loading, setLoading] = useState<boolean>(false)
+
+  const { user } = useAuth()
+  const toast = useToast()
+
+  const handleSubmit = async (): Promise<void> => {
+    if (desc.length < 100 || shortDesc.length < 36 || title.length < 8 || category === "") return
+
+    setLoading(true)
+    const post: Post = {
+      title: title,
+      fullDesc: desc,
+      shortDesc: shortDesc,
+      category: category,
+      slug: slugGenerator(title),
+      authorUserId: user.userId,
+      mediaUrl: "",
+      teamName: "",
+      teamSlug: "",
+    }
+
+    try {
+      await fetch("https://us-central1-logicl.cloudfunctions.net/idea/create", {
+        method: "POST",
+        body: JSON.stringify(post),
+      })
+      toast({
+        title: "Başarılı.",
+        description: "Fikir başarıyla paylaşıldı.",
+        status: "success",
+        duration: 6000,
+        isClosable: true,
+      })
+      setLoading(false)
+      setTitle("")
+      setShortDesc("")
+      setDesc("")
+      setCategory("")
+    } catch (err) {
+      console.log(err)
+      setLoading(false)
+      toast({
+        title: "Bir hata oluştu.",
+        description: err,
+        status: "error",
+        duration: 6000,
+        isClosable: true,
+      })
+    }
+  }
 
   return (
     <Container bgSrc="/wave1.svg">
@@ -39,40 +105,42 @@ const CreatePost: React.FC = () => {
         <FormControl mt={6}>
           <Flex direction="row">
             <Flex direction="column" w="100%">
-              <Flex direction="column">
-                <FormLabel>Başlık</FormLabel>
-                <Input
-                  onChange={(e) => setTitle(e.target.value)}
-                  h="32px"
-                  value={title}
-                  placeholder="Başlık giriniz"
-                ></Input>
-              </Flex>
+              <FormLabel>Başlık</FormLabel>
+              <Input
+                onChange={(e) => setTitle(e.target.value)}
+                h="32px"
+                value={title}
+                placeholder="Başlık giriniz"
+              />
 
-              <Flex mt={6} direction="column">
-                <FormLabel>Kategori</FormLabel>
-                <Select
-                  value={category}
-                  h="32px"
-                  color={category === "" ? "gray.400" : "black"}
-                  onChange={(e) => setCategory(`${e.target.value}`)}
-                  placeholder="Seçiniz"
-                >
-                  <option>Web</option>
-                  <option>Mobil</option>
-                  <option>Design</option>
-                </Select>
-              </Flex>
+              <FormLabel mt={6}>Kategori</FormLabel>
+              <Select
+                value={category}
+                h="32px"
+                color={category === "" ? "gray.400" : "black"}
+                onChange={(e) => setCategory(`${e.target.value}`)}
+                placeholder="Seçiniz"
+              >
+                <option>Web</option>
+                <option>Mobil</option>
+                <option>Design</option>
+              </Select>
 
-              <Flex direction="column" mt={6}>
-                <FormLabel>Açıklama</FormLabel>
-                <Textarea
-                  onChange={(e) => setDesc(e.target.value)}
-                  value={desc}
-                  minH="140px"
-                  placeholder="Minimum 100 karakter"
-                ></Textarea>
-              </Flex>
+              <FormLabel mt={6}>Kısa Açıklama</FormLabel>
+              <Textarea
+                onChange={(e) => setShortDesc(e.target.value)}
+                value={shortDesc}
+                minH="64px"
+                placeholder="Fikrin önizlemesinde görülecek kısım. Boş bırakırsanız otomatik olarak oluşturulur."
+              />
+
+              <FormLabel mt={6}>Açıklama</FormLabel>
+              <Textarea
+                onChange={(e) => setDesc(e.target.value)}
+                value={desc}
+                minH="140px"
+                placeholder="Minimum 100 karakter"
+              />
               <Flex w="100%" borderRadius="10px" mt={6} direction="column">
                 <Flex>
                   <FormLabel my="1" mr="4px">
@@ -92,10 +160,14 @@ const CreatePost: React.FC = () => {
 
           <Flex mt={4} mb={2} justifyContent="flex-end">
             <Button
-              disabled={desc.length >= 100 && title.length >= 8 && category !== "" ? false : true}
+              disabled={
+                desc.length < 100 || shortDesc.length < 36 || title.length < 8 || category === ""
+              }
               bgColor="#20D79E"
               _hover={{ bgColor: "green.600" }}
               color="white"
+              onClick={() => handleSubmit()}
+              isLoading={loading}
             >
               Oluştur
             </Button>

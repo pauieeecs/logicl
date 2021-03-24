@@ -19,7 +19,7 @@ export type UserSignupEmail = {
   email: string
   password: string
   fullName: string
-  birthYear: number
-  birthMonth: number
-  birthDay: number
+  birthYear: string
+  birthMonth: string
+  birthDay: string
 }

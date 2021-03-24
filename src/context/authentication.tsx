@@ -13,9 +13,9 @@ type Auth = {
     email: string,
     password: string,
     fullName: string,
-    birthDay: number,
-    birthMonth: number,
-    birthYear: number,
+    birthDay: string,
+    birthMonth: string,
+    birthYear: string,
     redirect: string
   ) => void
   signout: (redirect: string | boolean) => void
@@ -61,7 +61,6 @@ const useProvideAuth = (): Auth => {
           city: userData.city,
         }
         setUser(tempUser)
-        console.log(tempUser)
         localStorage.setItem("logicl-user", JSON.stringify(tempUser))
         setLoading(false)
         return true
@@ -105,9 +104,9 @@ const useProvideAuth = (): Auth => {
     email: string,
     password: string,
     fullName: string,
-    birthDay: number,
-    birthMonth: number,
-    birthYear: number,
+    birthDay: string,
+    birthMonth: string,
+    birthYear: string,
     redirect: string
   ): Promise<void> => {
     setLoading(true)
@@ -227,7 +226,7 @@ const useProvideAuth = (): Auth => {
     setLoading(true)
   }
 
-  useEffect(() => {
+  useEffect((): firebase.Unsubscribe => {
     const rawUserData = localStorage.getItem("logicl-user")
     const userData = JSON.parse(rawUserData)
     if (userData) setUser(userData)

@@ -23,7 +23,29 @@ const ProfilePage: React.FC = () => {
       .doc(user?.userId)
       .onSnapshot((res) => {
         const data = res.data()
-        setUserData(data)
+        const tempUser: User = {
+          fullName: data.fullName,
+          userId: data.userId,
+          userName: data.userName,
+          birthDate: data.birthDate,
+          country: data.country,
+          city: data.city,
+          email: data.email,
+          logiclCoin: data.logiclCoin,
+          bio: data.bio,
+          photoUrl: data.photoUrl,
+          joinedAt: data.joinedAt,
+          experience: data.experience,
+          level: data.level,
+          role: data.role,
+          jobTitle: data.jobTitle,
+          authProvider: data.authProvider,
+          gitHubLink: data.gitHubLink,
+          twitterLink: data.twitterLink,
+          teamName: data.teamName,
+          teamSlug: data.teamSlug,
+        }
+        setUserData(tempUser)
         setUserLoading(false)
       })
 
