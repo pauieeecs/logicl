@@ -21,7 +21,7 @@ const chooseColorForProgressBar = (val: number): string => {
 const ProgressBar: React.FC<Props> = ({ upVote, totalVote }) => {
   const color = useMemo(
     () => chooseColorForProgressBar(totalVote === 0 ? 0 : (upVote / totalVote) * 100),
-    []
+    [totalVote, upVote]
   )
 
   return (

@@ -34,7 +34,7 @@ const Comment: React.FC<Props> = ({
         <Text fontWeight="bold" textColor="#003848">
           {category}
         </Text>
-        <ProgressBar upVote={29} downVote={2} />
+        <ProgressBar upVote={29} totalVote={31} />
       </Flex>
       <Flex direction="column" height="110px">
         <Flex direction="row">
