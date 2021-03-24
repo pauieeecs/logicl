@@ -40,7 +40,7 @@ const Navbar: React.FC = () => {
             <MenuButton>
               <Avatar
                 bgColor={user ? "#D5F4FC" : "#fff"}
-                name={user && user.photoUrl === "" ? user.name : ""}
+                name={user && user.photoUrl === "" ? user.fullName : ""}
                 textAlign="center"
                 size="sm"
                 src={user ? (user.photoUrl !== "" ? user.photoUrl : "") : "/profile.svg"}
@@ -51,7 +51,7 @@ const Navbar: React.FC = () => {
             <MenuList>
               {user ? (
                 <>
-                  <MenuGroup title={user.name}>
+                  <MenuGroup title={user.fullName}>
                     <Link href="/profile">
                       <MenuItem>Profilim</MenuItem>
                     </Link>
