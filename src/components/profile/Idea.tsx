@@ -1,47 +1,43 @@
 import { Flex, Text } from "@chakra-ui/react"
+import { useRouter } from "next/dist/client/router"
 import React from "react"
+import { IdeaShort } from "../../types/idea"
 import ProgressBar from "./ProgressBar"
 
 type Props = {
-  category: string
-  title: string
-  text: string
-  date: string
+  idea: IdeaShort
 }
 
-const Idea: React.FC<Props> = ({ category, title, text, date }) => {
+const Idea: React.FC<Props> = ({ idea }) => {
+  const router = useRouter()
   return (
     <Flex
-      w="913px"
-      h="156px"
+      width="90%"
       backgroundColor="#C3F2FF"
       borderRadius="8px"
-      my={6}
+      mt={4}
       direction="column"
+      p={4}
+      onClick={() => router.push(`/idea/${idea.slug}`)}
+      cursor="pointer"
     >
-      <Flex direction="row" justifyContent="space-between" mx={4}>
-        <Text fontWeight="bold" textColor="#003848">
-          {category}
+      <Flex direction="row" alignItems="flex-end" justifyContent="space-between">
+        <Text fontWeight="500" textTransform="uppercase" fontSize="12px" textColor="gray.400">
+          {idea.category}
         </Text>
-        <ProgressBar upVote={44} downVote={33} />
+        <ProgressBar upVote={idea.upVote} totalVote={idea.totalVote} />
       </Flex>
-      <Flex direction="column" height="110px">
-        <Flex direction="row">
-          <Text textColor="#003848" fontWeight="bold" mx={4}>
-            {title}
-          </Text>
-          <Text textColor="#837C7C" fontSize="sm">
-            @keremesen
+      <Flex direction="column">
+        <Flex alignItems="flex-end">
+          <Text textColor="gray.700" fontSize="20px" fontWeight="500">
+            {idea.title}
           </Text>
         </Flex>
-
-        <Text textColor="#003848" fontSize="xs" mx={4} noOfLines={4}>
-          {text}
+        <Text textColor="#003848" fontSize="12px" noOfLines={4}>
+          {idea.shortDesc}
         </Text>
-      </Flex>
-      <Flex direction="column" justify="flex-end" align="flex-end" w="100%">
-        <Text textColor="#837C7C" fontSize="xs" mr={2}>
-          {date}
+        <Text textColor="#837C7C" fontSize="xs" alignSelf="flex-end" mt={4}>
+          {new Date(idea.createdAt.seconds * 1000).toLocaleDateString("tr-TR")}
         </Text>
       </Flex>
     </Flex>
