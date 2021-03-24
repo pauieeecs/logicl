@@ -66,7 +66,26 @@ const ProfilePage: React.FC = () => {
           .get()
 
         const tempIdeas: IdeaShort[] = []
-        res.docs.forEach((doc) => tempIdeas.push({ documentId: doc.id, ...doc.data() }))
+        res.docs.forEach((doc) => {
+          const data = doc.data()
+          tempIdeas.push({
+            documentId: doc.id,
+            authorName: data.authorName,
+            authorUserId: data.authorUserId,
+            authorUserName: data.authorUserName,
+            category: data.category,
+            createdAt: data.createdAt,
+            interactors: data.interactors,
+            mediaUrl: data.mediaUrl,
+            shortDesc: data.shortDesc,
+            slug: data.slug,
+            teamName: data.teamName,
+            teamSlug: data.teamSlug,
+            title: data.title,
+            totalVote: data.totalVote,
+            upVote: data.upvote,
+          })
+        })
         setIdeas(tempIdeas)
         setIdeaLoading(false)
       }
