@@ -83,7 +83,7 @@ const ProfilePage: React.FC = () => {
             teamSlug: data.teamSlug,
             title: data.title,
             totalVote: data.totalVote,
-            upVote: data.upvote,
+            upVote: data.upVote,
           })
         })
         setIdeas(tempIdeas)

@@ -157,23 +157,27 @@ const useProvideAuth = (): Auth => {
       const authResponse = await firebase
         .auth()
         .signInWithPopup(isGithub ? githubProvider : googleProvider)
-      const mail = authResponse.user.email
-      const username = authResponse.additionalUserInfo.username
-      const tempUser: User = {
-        userId: authResponse.user.uid,
-        fullName: authResponse.user.displayName,
-        photoUrl: authResponse.user.photoURL,
-        email: mail,
-        userName: username ? username : slugGenerator(authResponse.user.displayName),
-        birthDate: "",
-        authProvider: isGithub ? "github" : "google",
-        country: "",
-        city: "",
+
+      if (authResponse.additionalUserInfo.isNewUser) {
+        const mail = authResponse.user.email
+        const username = authResponse.additionalUserInfo.username
+        const tempUser: User = {
+          userId: authResponse.user.uid,
+          fullName: authResponse.user.displayName,
+          photoUrl: authResponse.user.photoURL,
+          email: mail,
+          userName: username ? username : slugGenerator(authResponse.user.displayName),
+          birthDate: "",
+          authProvider: isGithub ? "github" : "google",
+          country: "",
+          city: "",
+        }
+        await fetch("https://us-central1-logicl.cloudfunctions.net/user/create", {
+          method: "POST",
+          body: JSON.stringify(tempUser),
+        })
       }
-      await fetch("https://us-central1-logicl.cloudfunctions.net/user/create", {
-        method: "POST",
-        body: JSON.stringify(tempUser),
-      })
+
       handleUser(authResponse.user)
       router.push("/").then(() => {
         toast({
