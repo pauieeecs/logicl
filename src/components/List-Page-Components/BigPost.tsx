@@ -16,7 +16,7 @@ const BigPost: React.FC<Props> = ({ category, title, text, date }) => {
     <Flex
       boxShadow="md"
       w="100%"
-      h="266px"
+      h="250px"
       position="relative"
       borderRadius="10px"
       mb={10}
@@ -24,12 +24,12 @@ const BigPost: React.FC<Props> = ({ category, title, text, date }) => {
       _hover={{ bgColor: "#C3F2FF", cursor: "pointer" }}
     >
       <VoteButton right="16px" top="-24px" up={55} down={55} />
-      <Flex mx={2} direction="column" justifyContent="space-between">
+      <Flex padding="10px 15px" mx={2} direction="column">
         <Text my={1} fontWeight="bold">
           {category}
         </Text>
         <Flex position="relative">
-          <Heading fontSize="28px" noOfLines={1} maxW="600px">
+          <Heading fontSize="28px" noOfLines={1} maxW="560px">
             {title}
           </Heading>
           <Flex mx={2} align="flex-end" fontSize="14px">
@@ -50,10 +50,10 @@ const BigPost: React.FC<Props> = ({ category, title, text, date }) => {
             </Flex>
           </Flex>
         </Flex>
-        <Text fontSize="18px" mt={1} noOfLines={6}>
+        <Text fontSize="18px" noOfLines={5}>
           {text}
         </Text>
-        <Text color="gray" fontWeight="bold" align="end" mt={2}>
+        <Text color="gray.500" align="end" mt={2}>
           {date}
         </Text>
       </Flex>

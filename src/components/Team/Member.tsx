@@ -9,7 +9,7 @@ type Props = {
 const Member: React.FC<Props> = ({ memberName, memberBio }) => {
   return (
     <Flex
-      w="581px"
+      w="560px"
       h="94px"
       bgColor="#95E3F8"
       borderRadius="13px"

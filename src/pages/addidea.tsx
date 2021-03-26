@@ -93,8 +93,8 @@ const CreatePost: React.FC = () => {
         borderRadius="10px"
         border="5px solid #C3F2FF"
         my={8}
-        px="24px"
-        py="8px"
+        px={6}
+        py={2}
         direction="column"
         color="#065E77"
         opacity="0.9"
@@ -143,10 +143,10 @@ const CreatePost: React.FC = () => {
               />
               <Flex w="100%" borderRadius="10px" mt={6} direction="column">
                 <Flex>
-                  <FormLabel my="1" mr="4px">
+                  <FormLabel my={1} mr={1}>
                     Fotoğraf Yükle
                   </FormLabel>
-                  <Text h="24px" my="1" color="gray">
+                  <Text h="24px" my={1} color="gray">
                     (En fazla 5 adet)
                   </Text>
                   <Text fontSize="12px" color="gray">

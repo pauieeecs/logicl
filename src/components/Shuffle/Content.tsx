@@ -7,13 +7,13 @@ type Props = {
 const Content: React.FC<Props> = ({ title, text, category }) => {
   return (
     <Flex direction="column" position="relative">
-      <Heading letterSpacing={1} fontWeight="bold" size="xs">
+      <Heading fontWeight="bold" size="xs">
         {category}
       </Heading>
-      <Heading letterSpacing={1} my={5} size="lg">
+      <Heading my={2} size="lg">
         {title}
       </Heading>
-      <Text letterSpacing={1} noOfLines={7}>
+      <Text noOfLines={7} fontSize="18px">
         {text}
       </Text>
     </Flex>

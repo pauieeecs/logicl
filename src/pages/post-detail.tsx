@@ -14,7 +14,7 @@ const PostDetail: React.FC = () => {
         my={10}
         direction="column"
         p="20px 30px"
-        w="1000px"
+        w="1080px"
         h="auto"
         bgColor="#E6F8FD"
         borderRadius={15}
@@ -45,22 +45,15 @@ const PostDetail: React.FC = () => {
            Lorem Ipsum.including version"
           />
         </Flex>
-        <VoteButton top="-24px" right="50px" down={55} up={55} />
-        <Profile
-          name="Emre Mert Akdağ"
-          about="Hayatın heyecanı meyecanı yok bum zıbap ıvj Pide"
-          age={21}
-          city="Samsun"
-          image="user.jpg"
-        />
+        <VoteButton top="-24px" right="30px" down={55} up={55} />
       </Flex>
-      <Flex my={-2} direction="column" w="1000px" h="auto" bgColor="#transparent" borderRadius={15}>
+      <Flex my={-2} direction="column" w="1080px" h="auto" bgColor="#transparent" borderRadius={15}>
         <Wrap w="100%">
           <WrapItem
             boxShadow="md"
             borderRadius={15}
             flexDirection="column"
-            p="30px 30px"
+            p="30px 36px"
             flex="6"
             bgColor="#E6F8FD"
             marginBottom="50px"
@@ -129,15 +122,14 @@ const PostDetail: React.FC = () => {
               />
             </Stack>
           </WrapItem>
-          <WrapItem
-            boxShadow="md"
-            borderRadius={15}
-            height="130px"
-            flexDirection="column"
-            flex="2"
-            padding={5}
-            bgColor="#E6F8FD"
-          >
+          <WrapItem borderRadius={15} flexDirection="column" flex="2" pl={5}>
+            <Profile
+              name="Emre Mert Akdağ"
+              about="Hayatın heyecanı meyecanı yok bum zıbap ıvj Pide"
+              age={21}
+              city="Samsun"
+              image="user.jpg"
+            />
             <PostInfo view={155} investor={55} vote={555} comment={5} />
           </WrapItem>
         </Wrap>

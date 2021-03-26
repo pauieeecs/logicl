@@ -8,7 +8,7 @@ type Props = {
 
 const Appliers: React.FC<Props> = ({ appliersName, appliersDesc }) => {
   return (
-    <Flex w="581px" h="100%" bgColor="#95E3F8" borderRadius="13px" ml={6} mb={4} direction="row">
+    <Flex w="560px" h="100%" bgColor="#95E3F8" borderRadius="13px" ml={6} mb={4} direction="row">
       <Flex
         w="73px"
         h="73px"
@@ -40,7 +40,7 @@ const Appliers: React.FC<Props> = ({ appliersName, appliersDesc }) => {
       >
         <Image src="/cross.svg" cursor="pointer" />
         <Button
-          w="116px"
+          w="96px"
           h="29px"
           bgColor="#20D79E"
           borderRadius="47px"

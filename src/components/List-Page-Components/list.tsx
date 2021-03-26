@@ -28,9 +28,9 @@ const List: React.FC = () => {
         <WrapItem
           flexDirection="column"
           flex="2"
-          borderRadius="6px"
+          borderRadius="10px"
           alignItems="center"
-          h="940px"
+          h="960px"
           mt={12}
           bgColor="#E6F8FD"
           boxShadow="md"

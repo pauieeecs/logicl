@@ -28,7 +28,7 @@ const ProfileCard: React.FC<Props> = ({ userName, userDesc }) => {
         <Heading mx={1} fontSize="16px">
           {userName}
         </Heading>
-        <Text mx={1} fontSize="12px" noOfLines={2}>
+        <Text mx={1} fontSize="14px" noOfLines={2}>
           {userDesc}
         </Text>
       </Flex>

@@ -29,7 +29,6 @@ const CreateTeam: React.FC = () => {
           </Text>
         </Flex>
         <Flex
-          boxShadow="md"
           w="720px"
           minH="480px"
           my={24}
@@ -39,10 +38,10 @@ const CreateTeam: React.FC = () => {
           direction="column"
         >
           <Flex mx={6} my={4} direction="column">
-            <Heading fontSize="24px" letterSpacing="widest">
+            <Heading fontSize="24px" letterSpacing="wider">
               Ekip Oluştur
             </Heading>
-            <FormControl my={4}>
+            <FormControl>
               <FormLabel mt={6}>Ekip Adı</FormLabel>
               <Input
                 isRequired
@@ -67,10 +66,11 @@ const CreateTeam: React.FC = () => {
               <Textarea
                 onChange={(e) => setDesc(e.target.value)}
                 value={desc}
+                minH="130px"
                 isRequired
                 placeholder="Minimum 100 karakter"
               ></Textarea>
-              <Flex mt={6} justify="flex-end">
+              <Flex mt={3} justify="flex-end">
                 <Button
                   disabled={
                     desc.length >= 100 && teamName.length >= 3 && category !== "" ? false : true

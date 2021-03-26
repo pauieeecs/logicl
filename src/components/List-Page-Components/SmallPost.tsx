@@ -13,12 +13,12 @@ const SmallPost: React.FC<Props> = ({ title, text, upVote, totalVote, date }) =>
   return (
     <Flex
       w="250px"
-      borderRadius="8px"
+      borderRadius="10px"
       h="200px"
       direction="column"
       backgroundColor="#E6F8FD"
-      px="8px"
-      py="4px"
+      px={3}
+      py={2}
       _hover={{ bgColor: "#C3F2FF", cursor: "pointer" }}
     >
       <Flex direction="column" justifyContent="space-between" position="relative">

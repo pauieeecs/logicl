@@ -8,11 +8,9 @@ type Props = {
 }
 const Comment: React.FC<Props> = ({ type, date, name, text, rating }) => {
   return (
-    <Flex position="relative" w="100%" bgColor="#CAECF5" py={2} px={5} borderRadius={15}>
+    <Flex position="relative" w="100%" bgColor="#CAECF5" py={2} px={6} borderRadius={15}>
       <Flex direction="column">
-        <Text letterSpacing={1} fontSize="xs">
-          {text}
-        </Text>
+        <Text fontSize="sm">{text}</Text>
         <Flex mt={1}>
           <Text marginRight={4} fontSize="xs" color="#9C9C9C">
             @{name}
