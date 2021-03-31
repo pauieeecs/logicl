@@ -20,7 +20,7 @@ const team: React.FC = () => {
       />
       <Flex
         boxShadow="md"
-        w="976px"
+        w="960px"
         h="493px"
         bgColor="#E6F8FD"
         borderRadius="8px"

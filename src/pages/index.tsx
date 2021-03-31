@@ -1,15 +1,16 @@
 import Head from "next/head"
-import Explore from "./explore"
+import Container from "../components/Container"
+import List from "../components/List-Page-Components/list"
 
 const Home: React.FC = () => {
   return (
-    <div>
+    <Container bgSrc="/wave1.svg">
       <Head>
-        <title>Logicl with NextJS</title>
+        <title>Keşfet | Logicl</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Explore />
-    </div>
+      <List />
+    </Container>
   )
 }
 

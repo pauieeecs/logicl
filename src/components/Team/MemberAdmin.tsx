@@ -9,8 +9,8 @@ type Props = {
 const MemberAdmin: React.FC<Props> = ({ memberName, memberBio }) => {
   return (
     <Flex
-      w="581px"
-      h="100%"
+      w="560px"
+      h="94px"
       bgColor="#95E3F8"
       borderRadius="13px"
       ml={6}

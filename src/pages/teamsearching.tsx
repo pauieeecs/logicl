@@ -5,7 +5,7 @@ import Team from "../components/Team-Searching/Team"
 const TeamSearching: React.FC = () => {
   return (
     <Container bgSrc="/wave3.svg">
-      <Heading mt={10} w="780px" size="2xl" textAlign="center" fontWeight="bold" color="#065E77">
+      <Heading mt={10} w="720px" textAlign="center" fontWeight="bold" color="#065E77">
         KENDİNE EN UYGUN EKİBİ BUL VE ÇALIŞMAYA BAŞLA
       </Heading>
       <Stack spacing={5} my="100px">

@@ -18,8 +18,17 @@ const commentApp = express();
  *    feeling: 0 veya 1
  * }
  */
+
+commentApp.options("/create", (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "POST,GET");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  res.status(200).send();
+});
+
 commentApp.post("/create", async (req, res) => {
-  const data = req.body;
+  res.set("Access-Control-Allow-Origin", "*");
+  const data = JSON.parse(req.body);
   // check data
   if (data === null) {
     res.status(400).send({
@@ -44,30 +53,38 @@ commentApp.post("/create", async (req, res) => {
     createdAt: admin.firestore.FieldValue.serverTimestamp(),
     upVoters: [],
     upVoterCount: 0,
-    feeling: data.feeling,
   };
   const commentUnderUserDocument = {
+    ideaCategory: ideaData.category,
+    ideaTitle: ideaData.title,
+    ideaShortDesc: ideaData.shortDesc,
+    ideaAuthorUserName: ideaData.authorUserName,
+    ideaCreatedAt: ideaData.createdAt,
+    ideaSlug: ideaData.slug,
     ...comment,
-    ...ideaData,
   };
   try {
-    await admin
-      .firestore()
-      .collection("idea-full")
-      .doc(shortIdea.id)
-      .collection("comment")
-      .add(comment);
+    const commentDoc = await admin
+        .firestore()
+        .collection("idea-full")
+        .doc(shortIdea.id)
+        .collection("comment")
+        .add(comment);
+
     // TODO: create comment-idea mixed document under user document
     await admin
-      .firestore()
-      .collection("user")
-      .doc(data.authorId)
-      .collection("comment")
-      .add(commentUnderUserDocument);
+        .firestore()
+        .collection("user")
+        .doc(data.authorId)
+        .collection("comment")
+        .add(commentUnderUserDocument);
 
+    const timeStamp = await (await commentDoc.get()).data().createdAt;
     res.status(200).send({
       success: true,
       message: "Commented successfuly.",
+      commentId: commentDoc.id,
+      timeStamp: timeStamp,
     });
   } catch (err) {
     console.log(err);

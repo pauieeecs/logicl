@@ -1,77 +1,79 @@
-import { Flex, Image, Text } from "@chakra-ui/react"
+import { Flex, Link, Text } from "@chakra-ui/react"
+import { useRouter } from "next/dist/client/router"
 import React from "react"
-import ProgressBar from "./ProgressBar"
+import { CommentUnderUser } from "../../types/comment"
 
 type Props = {
-  category: string
-  title: string
-  text: string
-  date: string
-  commentCreatedAt: string
-  commentText: string
-  commentAuthorFullName: string
+  commentUnderUser: CommentUnderUser
 }
 
-const Comment: React.FC<Props> = ({
-  category,
-  title,
-  text,
-  date,
-  commentCreatedAt,
-  commentText,
-  commentAuthorFullName,
-}) => {
+const Comment: React.FC<Props> = ({ commentUnderUser }) => {
+  const router = useRouter()
+
+  if (!commentUnderUser) return null
+
   return (
-    <Flex
-      w="913px"
-      h="237px"
-      backgroundColor="#C3F2FF"
-      borderRadius="8px"
-      my={6}
-      direction="column"
-    >
-      <Flex direction="row" justifyContent="space-between" mx={4}>
-        <Text fontWeight="bold" textColor="#003848">
-          {category}
-        </Text>
-        <ProgressBar upVote={29} downVote={2} />
-      </Flex>
-      <Flex direction="column" height="110px">
-        <Flex direction="row">
-          <Text textColor="#003848" fontWeight="bold" mx={4}>
-            {title}
+    <Flex width="90%" backgroundColor="#C3F2FF" borderRadius={6} mt={4} p={4} direction="column">
+      <Text fontWeight="bold" color="#01A7D7" textTransform="uppercase" fontSize="12px">
+        {commentUnderUser.ideaCategory}
+      </Text>
+      <Flex direction="column">
+        <Flex direction="row" alignItems="center">
+          <Link
+            textColor="gray.700"
+            fontSize="20px"
+            fontWeight="500"
+            textTransform="capitalize"
+            mr={1}
+            onClick={() => router.push(`/post/${commentUnderUser.ideaSlug}`)}
+          >
+            {commentUnderUser.ideaTitle}
+          </Link>
+          <Text color="gray.500" fontWeight="bolder" fontSize="16px" mr={1}>
+            -
           </Text>
-          <Text textColor="#837C7C" fontSize="sm">
-            @keremesen
-          </Text>
+          <Link
+            textColor="#837C7C"
+            fontSize="16px"
+            onClick={() => router.push(`/profile/${commentUnderUser.ideaAuthorUserName}`)}
+          >
+            @{commentUnderUser.ideaAuthorUserName}
+          </Link>
         </Flex>
-        <Text textColor="#003848" fontSize="xs" mx={4} noOfLines={2}>
-          {text}
+        <Text
+          textColor="#003848"
+          fontSize="12px"
+          noOfLines={3}
+          cursor="pointer"
+          onClick={() => router.push(`/post/${commentUnderUser.ideaSlug}`)}
+        >
+          {commentUnderUser.ideaShortDesc}
         </Text>
       </Flex>
-      <Flex w="100%" h="100%" direction="row" align="normal">
-        <Flex w="4px" h="100px" bgColor="#01BAEF" m={5}></Flex>
-        <Flex direction="row" bgColor="#CAECF5" w="1200px" h="min" borderRadius="8px" mt={5}>
-          <Image src="/up-button.svg" position="absolute" />
-          <Flex direction="column" mt={2} ml={4}>
-            <Text textColor="#003848" noOfLines={3} m={1} fontSize="sm">
-              {commentText}
+      <Flex w="100%" direction="row" backgroundColor="#d6f6ff" p={2} align="normal" mt={2}>
+        <Flex w="16px" bgColor="#01BAEF" borderRadius={2} mr={2} />
+        <Flex direction="row" w="1200px" borderRadius={6} p={2}>
+          <Flex direction="column">
+            <Text textColor="#003848" fontSize="12px">
+              {commentUnderUser.comment}
             </Text>
-            <Text textColor="#9C9C9C" fontSize="xs">
-              {commentAuthorFullName} {commentCreatedAt}
-            </Text>
+            <Flex alignItems="flex-end" mt={2}>
+              <Link
+                textColor="#9C9C9C"
+                fontSize="12px"
+                mr={1}
+                onClick={() => router.push(`/profile/${commentUnderUser.commentAuthorUserName}`)}
+              >
+                @{commentUnderUser.commentAuthorUserName}
+              </Link>
+              <Text color="gray.500" fontWeight="bolder" fontSize="12px" mr={1}>
+                -
+              </Text>
+              <Text textColor="#9C9C9C" fontSize="12px">
+                {new Date(commentUnderUser.createdAt.seconds * 1000).toLocaleDateString("tr-TR")}
+              </Text>
+            </Flex>
           </Flex>
-          <Flex direction="column" align="center" justify="center" h="auto" w="50px" mx={4}>
-            <Image src="/comment-up.svg" />
-            <Text textColor="#003848" fontSize="sm">
-              13
-            </Text>
-          </Flex>
-        </Flex>
-        <Flex direction="column" justify="flex-end" align="flex-end" w="100%">
-          <Text textColor="#837C7C" fontSize="xs" mr={2}>
-            {date}
-          </Text>
         </Flex>
       </Flex>
     </Flex>

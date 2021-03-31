@@ -22,8 +22,17 @@ const ideaApp = express();
  *    category: "Blockchain"
  * }
  */
+
+ideaApp.options("/create", (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "POST,GET");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  res.status(200).send();
+});
+
 ideaApp.post("/create", async (req, res) => {
-  const data = req.body;
+  res.set("Access-Control-Allow-Origin", "*");
+  const data = JSON.parse(req.body);
   // check data
   if (data === null) {
     res.status(400).send({
@@ -45,17 +54,16 @@ ideaApp.post("/create", async (req, res) => {
       interactors: [],
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
       slug: data.slug,
-      mediaURL: data.mediaURL,
-      authorName: userData.fullname,
+      mediaUrl: data.mediaUrl,
+      authorName: userData.fullName,
       authorUserId: data.authorUserId,
       authorUserName: userData.userName,
-      authorSlug: userData.userSlug,
     };
     // create full version
     const fullIdea = {
       title: data.title,
       authorUserId: data.authorUserId,
-      mediaURL: data.mediaURL,
+      mediaUrl: data.mediaUrl,
       category: data.category,
       teamName: data.teamName,
       teamSlug: data.teamSlug,
@@ -65,9 +73,8 @@ ideaApp.post("/create", async (req, res) => {
       interactors: [],
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
       slug: data.slug,
-      authorName: userData.fullname,
+      authorName: userData.fullName,
       authorUserName: userData.userName,
-      authorSlug: userData.userSlug,
       authorBio: userData.bio,
       authorCity: userData.city,
       authorPhotoUrl: userData.photoUrl,
@@ -88,10 +95,10 @@ ideaApp.post("/create", async (req, res) => {
     };
 
     await admin
-      .firestore()
-      .collection("user")
-      .doc(data.authorUserId)
-      .update(freshUserData, { merge: true });
+        .firestore()
+        .collection("user")
+        .doc(data.authorUserId)
+        .update(freshUserData, {merge: true});
     const isLevelUp = userData.level < freshUserData.level;
 
     res.status(200).send({

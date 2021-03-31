@@ -15,8 +15,8 @@ const TeamAdmin: React.FC<Props> = ({ teamCreatedAt, teamDescription, teamName }
   return (
     <Flex
       boxShadow="md"
-      w="976px"
-      h="539px"
+      w="960px"
+      h="540px"
       bgColor="#E6F8FD"
       borderRadius="8px"
       my={6}

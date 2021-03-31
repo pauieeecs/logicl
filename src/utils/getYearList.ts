@@ -4,7 +4,7 @@ export const getYearsArray = (): number[] => {
 
   const arr: number[] = []
 
-  for (let i = yearStart; i < yearEnd + 1; i++) {
+  for (let i = yearEnd; i >= yearStart; i--) {
     arr.push(i)
   }
   return arr

@@ -27,22 +27,21 @@ const teamAdmin: React.FC = () => {
         borderRadius="8px"
         direction="column"
       >
-        <Button
-          bgColor="#01BAEF"
-          w="120px"
-          h="35px"
-          borderRadius="47px"
-          textColor="#fff"
-          pos="relative"
-          left="85%"
-          mt={6}
-          _hover={{ bgColor: "#1998FF" }}
-        >
-          Add Member +
-        </Button>
-        <Heading textColor="#003848" m={6}>
-          Members
-        </Heading>
+        <Flex flexDirection="row" padding={6} justifyContent="space-between">
+          <Heading textColor="#003848" display="inline-block">
+            Members
+          </Heading>
+          <Button
+            bgColor="#01BAEF"
+            w="120px"
+            h="35px"
+            borderRadius="47px"
+            textColor="#fff"
+            _hover={{ bgColor: "#1998FF" }}
+          >
+            Add Member +
+          </Button>
+        </Flex>
         <Flex direction="column" w="100%">
           <MemberAdmin
             memberName="Kerem Esen"
@@ -54,18 +53,20 @@ const teamAdmin: React.FC = () => {
             memberBio="yazilim ögrenip her gün 5l su içen sabah 6 da kalkıp web askiyla yanıp tutusan bir genc nt nt nt nt nt nt nt nt nt nt nt nt nt nt nt nt nt nt nt nt nt nt nt nt"
           />
         </Flex>
-        <Box w="95%" alignSelf="center" h="2px" bgColor="black" />
-        <Heading textColor="#003848" m={6}>
+        <Box w="95%" alignSelf="center" h="1px" my={6} bgColor="black" />
+        <Heading textColor="#003848" mx={6} mb={6}>
           Appliers
         </Heading>
-        <Appliers
-          appliersName="Kerem Esen"
-          appliersDesc="yazilim ögrenip her gün 5l su içen sabah 6 da kalkıp web askiyla yanıp tutusan bir genc nt nt nt nt"
-        />
-        <Appliers
-          appliersName="Kerem Esen"
-          appliersDesc="yazilim ögrenip her gün 5l su içen sabah 6 da kalkıp web askiyla yanıp tutusan bir genc nt nt nt ntyazilim ögrenip her gün 5l su içen sabah 6 da kalkıp web askiyla yanıp tutusan bir genc nt nt nt ntyazilim ögrenip her gün 5l su içen sabah 6 da kalkıp web askiyla yanıp tutusan bir genc nt nt nt nt"
-        />
+        <Flex flexDirection="column">
+          <Appliers
+            appliersName="Kerem Esen"
+            appliersDesc="yazilim ögrenip her gün 5l su içen sabah 6 da kalkıp web askiyla yanıp tutusan bir genc nt nt nt nt"
+          />
+          <Appliers
+            appliersName="Kerem Esen"
+            appliersDesc="yazilim ögrenip her gün 5l su içen sabah 6 da kalkıp web askiyla yanıp tutusan bir genc nt nt nt ntyazilim ögrenip her gün 5l su içen sabah 6 da kalkıp web askiyla yanıp tutusan bir genc nt nt nt ntyazilim ögrenip her gün 5l su içen sabah 6 da kalkıp web askiyla yanıp tutusan bir genc nt nt nt nt"
+          />
+        </Flex>
       </Flex>
     </Container>
   )

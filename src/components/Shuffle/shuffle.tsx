@@ -13,8 +13,8 @@ const Shuffle: React.FC = () => {
       my={10}
       direction="column"
       p="20px 30px"
-      w="1000px"
-      h="700px"
+      w="1080px"
+      h="640px"
       bgColor="#E6F8FD"
       borderRadius={15}
       position="relative"
@@ -59,12 +59,11 @@ const Shuffle: React.FC = () => {
       </Flex>
 
       <Box my={7} w="100%" h="2px" bgColor="#003848" />
-      <Heading letterSpacing="1px" size="md" color="#015D78">
+      <Heading size="md" color="#015D78">
         Öne Çıkan Yorumlar
       </Heading>
       <Comments />
 
-      <VoteButton top="-24px" right="50px" down={55} up={55} />
       <Link href="#">
         <Icon
           position="absolute"

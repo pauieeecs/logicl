@@ -41,7 +41,7 @@ const ApplyTeam: React.FC = () => {
           boxShadow="md"
           my={24}
           w="720px"
-          minH="480px"
+          minH="420px"
           bgColor="#E6F8FD"
           py={3}
           px={6}
@@ -52,7 +52,7 @@ const ApplyTeam: React.FC = () => {
             Başvuru Yap
           </Heading>
           <Flex mt={3}>
-            <Flex direction="column" mr="16px" w="48%">
+            <Flex direction="column" mr={4} w="48%">
               <FormLabel>Ad Soyad</FormLabel>
               <Input
                 type="name"
@@ -73,7 +73,7 @@ const ApplyTeam: React.FC = () => {
           </Flex>
 
           <Flex mt={3}>
-            <Flex direction="column" mr="24px" w="48%">
+            <Flex direction="column" mr={4} w="48%">
               <FormLabel>Şehir</FormLabel>
               <Input
                 type="text"
@@ -92,16 +92,16 @@ const ApplyTeam: React.FC = () => {
               ></Input>
             </Flex>
           </Flex>
-          <Flex direction="column" mt={3}>
+          <Flex direction="column" mt={3} maxWidth="98%">
             <FormLabel>Kendiniz Bahseder Misiniz?</FormLabel>
             <Textarea
-              minH="150px"
+              minH="130px"
               value={desc}
               onChange={(e) => setDesc(e.target.value)}
               placeholder="Minimum 100 karakter"
             ></Textarea>
           </Flex>
-          <Flex mt={3} justifyContent="flex-end">
+          <Flex mt={4} justifyContent="flex-end">
             <Button
               disabled={!valid(name, email, desc, phoneNumber, city) ? true : false}
               bgColor="#20D79E"

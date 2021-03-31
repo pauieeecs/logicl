@@ -9,6 +9,7 @@ import {
   Select,
 } from "@chakra-ui/react"
 import { useRouter } from "next/dist/client/router"
+import Head from "next/head"
 import React, { useMemo, useState } from "react"
 import Container from "../components/Container"
 import { useAuth } from "../context/authentication"
@@ -27,7 +28,9 @@ const Auth: React.FC = () => {
     email: "",
     password: "",
     fullName: "",
-    birthYear: 0,
+    birthDay: "",
+    birthMonth: "",
+    birthYear: "",
   })
 
   const handleSignin = (): void => {
@@ -38,23 +41,27 @@ const Auth: React.FC = () => {
   }
 
   const handleSignup = (): void => {
-    const { email, password, fullName, birthYear } = signupData
+    const { email, password, fullName, birthYear, birthDay, birthMonth } = signupData
     if (
       email === "" ||
       password === "" ||
       password.length < 5 ||
       email.length < 6 ||
       fullName.length < 3 ||
-      birthYear === 0
+      birthYear === "" ||
+      birthDay === "" ||
+      birthMonth === ""
     )
       return
 
-    signup(email, password, fullName, birthYear, "/")
+    signup(email, password, fullName, birthDay, birthMonth, birthYear, "/")
     setSignupData({
       email: "",
       password: "",
       fullName: "",
-      birthYear: 0,
+      birthYear: "",
+      birthMonth: "",
+      birthDay: "",
     })
   }
 
@@ -64,6 +71,10 @@ const Auth: React.FC = () => {
 
   return (
     <Container bgSrc="/wave1.svg">
+      <Head>
+        <title>Giriş Yap & Kayıt Ol | Logicl</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Flex width="1080px" height="100%" flexDirection="row" justifyContent="space-between" py={16}>
         <Flex
           boxShadow="md"
@@ -82,25 +93,25 @@ const Auth: React.FC = () => {
             Giriş yap
           </Heading>
           <FormControl mt={4}>
-            <FormLabel fontWeight="500" color="#065E77" fontSize="24px">
+            <FormLabel fontWeight="500" color="#065E77" fontSize="16px">
               E-posta
             </FormLabel>
             <Input
               focusBorderColor="#B3EBFA"
               borderRadius={6}
-              placeholder="ornek@mail.com"
+              placeholder="E-posta"
               type="email"
               id="signin-mail"
               value={signinData.email}
               onChange={(e) => setSigninData({ ...signinData, email: e.target.value })}
             />
-            <FormLabel mt={4} fontWeight="500" color="#065E77" fontSize="24px">
+            <FormLabel mt={4} fontWeight="500" color="#065E77" fontSize="16px">
               Şifre
             </FormLabel>
             <Input
               focusBorderColor="#B3EBFA"
               borderRadius={6}
-              placeholder="Sifre123"
+              placeholder="Şifre"
               type="password"
               id="signin-password"
               value={signinData.password}
@@ -136,22 +147,6 @@ const Auth: React.FC = () => {
           >
             GitHub ile giriş yap
           </Button>
-          <Button
-            justifyContent="center"
-            leftIcon={<Image boxSize={6} src="/google.svg" />}
-            variant="solid"
-            backgroundColor="#D5F4FC"
-            color="#065E77"
-            mt={2}
-            width="85%"
-            py={2}
-            border="2px solid #C3F2FF"
-            _hover={{ backgroundColor: "#C6F3FF" }}
-            isLoading={loading}
-            isDisabled
-          >
-            Google ile giriş yap
-          </Button>
         </Flex>
         <Flex
           boxShadow="md"
@@ -169,59 +164,88 @@ const Auth: React.FC = () => {
             Kayıt ol
           </Heading>
           <FormControl mt={4}>
-            <FormLabel fontWeight="500" color="#065E77" fontSize="24px">
+            <FormLabel fontWeight="500" color="#065E77" fontSize="16px">
               E-posta
             </FormLabel>
             <Input
               focusBorderColor="#B3EBFA"
               borderRadius={6}
-              placeholder="ornek@mail.com"
+              placeholder="E-posta"
               type="email"
               id="signup-mail"
               onChange={(e) => setSignupData({ ...signupData, email: e.target.value })}
               value={signupData.email}
             />
-            <FormLabel mt={4} fontWeight="500" color="#065E77" fontSize="24px">
+            <FormLabel mt={4} fontWeight="500" color="#065E77" fontSize="16px">
               Şifre
             </FormLabel>
             <Input
               focusBorderColor="#B3EBFA"
               borderRadius={6}
-              placeholder="Sifre123"
+              placeholder="Şifre"
               type="password"
               id="signup-password"
               onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
               value={signupData.password}
             />
-            <FormLabel mt={4} fontWeight="500" color="#065E77" fontSize="24px">
+            <FormLabel mt={4} fontWeight="500" color="#065E77" fontSize="16px">
               Ad soyad
             </FormLabel>
             <Input
               focusBorderColor="#B3EBFA"
               borderRadius={6}
-              placeholder="John Doe"
+              placeholder="Ad Soyad"
               type="text"
               id="signup-fullname"
               onChange={(e) => setSignupData({ ...signupData, fullName: e.target.value })}
               value={signupData.fullName}
             />
-            <FormLabel mt={4} fontWeight="500" color="#065E77" fontSize="24px">
-              Doğum Yılı
+            <FormLabel mt={4} fontWeight="500" color="#065E77" fontSize="16px">
+              Doğum Tarihi (gün/ay/yıl)
             </FormLabel>
-            <Select
-              focusBorderColor="#B3EBFA"
-              placeholder="Seçiniz.."
-              onChange={(e) =>
-                setSignupData({ ...signupData, birthYear: parseInt(e.target.value) })
-              }
-              value={signupData.birthYear}
-            >
-              {yearsArray.map((year) => (
-                <option value={year} key={year}>
-                  {year}
-                </option>
-              ))}
-            </Select>
+            <Flex>
+              <Select
+                focusBorderColor="#B3EBFA"
+                placeholder="Gün"
+                color={signupData.birthDay === "" ? "gray.400" : "black"}
+                onChange={(e) => setSignupData({ ...signupData, birthDay: e.target.value })}
+                value={signupData.birthDay}
+              >
+                {day.map((day) => (
+                  <option value={day} key={`day-${day}`}>
+                    {day}
+                  </option>
+                ))}
+              </Select>
+              <Select
+                ml={2}
+                focusBorderColor="#B3EBFA"
+                placeholder="Ay"
+                color={signupData.birthMonth === "" ? "gray.400" : "black"}
+                onChange={(e) => setSignupData({ ...signupData, birthMonth: e.target.value })}
+                value={signupData.birthMonth}
+              >
+                {month.map((month) => (
+                  <option value={month} key={`month-${month}`}>
+                    {month}
+                  </option>
+                ))}
+              </Select>
+              <Select
+                ml={2}
+                focusBorderColor="#B3EBFA"
+                placeholder="Yıl"
+                color={signupData.birthYear === "" ? "gray.400" : "black"}
+                onChange={(e) => setSignupData({ ...signupData, birthYear: e.target.value })}
+                value={signupData.birthYear}
+              >
+                {yearsArray.map((year) => (
+                  <option value={year} key={`year-${year}`}>
+                    {year}
+                  </option>
+                ))}
+              </Select>
+            </Flex>
           </FormControl>
           <Button
             variant="solid"
@@ -252,22 +276,6 @@ const Auth: React.FC = () => {
           >
             GitHub ile kayıt ol
           </Button>
-          <Button
-            justifyContent="center"
-            leftIcon={<Image boxSize={6} src="/google.svg" />}
-            variant="solid"
-            backgroundColor="#D5F4FC"
-            color="#065E77"
-            mt={2}
-            width="85%"
-            py={2}
-            border="2px solid #C3F2FF"
-            _hover={{ backgroundColor: "#C6F3FF" }}
-            isLoading={loading}
-            isDisabled
-          >
-            Google ile kayıt ol
-          </Button>
         </Flex>
       </Flex>
     </Container>
@@ -275,3 +283,39 @@ const Auth: React.FC = () => {
 }
 
 export default Auth
+
+const day = [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30,
+  31,
+]
+
+const month = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]

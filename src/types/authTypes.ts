@@ -1,11 +1,13 @@
 export type User = {
-  uid: string
-  name: string
-  photoUrl: string
   email: string
-  slug: string
-  birthYear: number
-  provider: string
+  userId: string
+  fullName: string
+  photoUrl: string
+  authProvider: string
+  country: string
+  city: string
+  birthDate: string
+  userName: string
 }
 
 export type UserSigninEmail = {
@@ -17,5 +19,7 @@ export type UserSignupEmail = {
   email: string
   password: string
   fullName: string
-  birthYear: number
+  birthYear: string
+  birthMonth: string
+  birthDay: string
 }

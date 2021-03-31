@@ -25,33 +25,30 @@ const Navbar: React.FC = () => {
         justifyContent="space-between"
         alignItems="center"
       >
-        <Text fontSize="40px" fontWeight="500">
+        <Text fontSize="40px" color="#003848" fontWeight="500">
           <Link href="/">logicl</Link>
         </Text>
 
         <Flex flexDirection="row">
-          <Link href="/addidea">
-            <Image cursor="pointer" boxSize={6} src="/plus.svg" />
-          </Link>
-          <Link href="/notifications">
-            <Image cursor="pointer" mx={2} boxSize={6} src="/bell.svg" />
+          <Link href={user ? "/addidea" : "/auth"}>
+            <Image cursor="pointer" mx={2} boxSize={6} src="/plus.svg" />
           </Link>
           <Menu>
             <MenuButton>
               <Avatar
                 bgColor={user ? "#D5F4FC" : "#fff"}
-                name={user && user.photoUrl === "" ? user.name : ""}
+                name={user && user.photoUrl === "" ? user.fullName : ""}
                 textAlign="center"
                 size="sm"
                 src={user ? (user.photoUrl !== "" ? user.photoUrl : "") : "/profile.svg"}
                 //pp yokken ismin baş harfleri çıkıyor. ikisi arasında size farkı var gibi hissettim. böyle daha iyi oldu sonradan değiştirebiliriz
-                boxSize={user ? 7 : 6}
+                boxSize={6}
               />
             </MenuButton>
             <MenuList>
               {user ? (
                 <>
-                  <MenuGroup title={user.name}>
+                  <MenuGroup title={user.fullName}>
                     <Link href="/profile">
                       <MenuItem>Profilim</MenuItem>
                     </Link>

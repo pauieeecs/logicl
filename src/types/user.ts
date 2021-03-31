@@ -2,7 +2,6 @@ import firebase from "firebase"
 
 export interface User {
   userId: string
-  userSlug: string
   fullName: string
   userName: string
   birthDate: string

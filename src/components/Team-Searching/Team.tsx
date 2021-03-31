@@ -17,21 +17,29 @@ const Team: React.FC<Props> = ({ name, avatar, teamText, teamCategory, teamName 
       paddingBottom="50px"
       borderRadius="15px"
       border="5px solid #C3F2FF"
-      w="600px"
-      maxH="175px"
+      w="720px"
+      maxH="230px"
       bgColor="#E6F8FD"
       direction="column"
       position="relative"
     >
-      <Heading size="sm">{teamName}</Heading>
-      <Text fontSize="8px" color="#878787">
+      <Heading size="lg">{teamName}</Heading>
+      <Text fontSize="12px" color="#878787">
         {teamCategory}
       </Text>
-      <Text noOfLines={4} fontSize="12px" mt="3px">
+      <Text noOfLines={5} fontSize="14px" mt="3px">
         {teamText}
       </Text>
 
-      <Button bottom="10px" position="absolute" bgColor="#20D79E" color="#fff" h={8} fontSize="sm">
+      <Button
+        bottom="10px"
+        _hover={{ bgColor: "green.600" }}
+        position="absolute"
+        bgColor="#20D79E"
+        color="#fff"
+        h={8}
+        fontSize="sm"
+      >
         Başvur
       </Button>
       <Stack direction="row" position="absolute" bottom="10px" right="15px" spacing="-7px">

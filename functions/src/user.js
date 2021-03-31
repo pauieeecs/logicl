@@ -41,8 +41,17 @@ userApp.get("/profile/:id", async (req, res) => {
  *    userId: "authdan gelen uid"
  * }
  */
+
+userApp.options("/create", (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "POST,GET");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  res.status(200).send();
+});
+
 userApp.post("/create", async (req, res) => {
-  const userInfo = req.body;
+  res.set("Access-Control-Allow-Origin", "*");
+  const userInfo = JSON.parse(req.body);
   if (userInfo === null) {
     res.status(400).send({
       error: "Body can't be null.",
@@ -83,7 +92,7 @@ userApp.post("/create", async (req, res) => {
  * profil güncelleme ekranındaki her şeyi alır ve önceki dökümanın üzerine yazar. dolayısıyla boş input yollarken dikkatli olun
  */
 userApp.post("/update", async (req, res) => {
-  const userInfo = req.body;
+  const userInfo = JSON.parse(req.body);
   if (userInfo === null) {
     res.status(400).send({
       error: "Body can't be null.",

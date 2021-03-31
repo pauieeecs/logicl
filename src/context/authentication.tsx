@@ -13,7 +13,9 @@ type Auth = {
     email: string,
     password: string,
     fullName: string,
-    birthYear: number,
+    birthDay: string,
+    birthMonth: string,
+    birthYear: string,
     redirect: string
   ) => void
   signout: (redirect: string | boolean) => void
@@ -44,17 +46,19 @@ const useProvideAuth = (): Auth => {
   const handleUser = async (rawUser: firebase.User): Promise<boolean> => {
     setLoading(true)
     if (rawUser) {
-      const userDoc = await firebase.firestore().collection("users").doc(rawUser.uid).get()
+      const userDoc = await firebase.firestore().collection("user").doc(rawUser.uid).get()
       if (userDoc.exists) {
         const userData = userDoc.data()
         const tempUser: User = {
-          uid: rawUser.uid,
-          name: userData.name,
+          userId: rawUser.uid,
+          fullName: userData.fullName,
           photoUrl: userData.photoUrl,
           email: userData.email,
-          slug: userData.slug,
-          birthYear: userData.birthYear,
-          provider: userData.providerData,
+          userName: userData.userName,
+          birthDate: userData.birthDate,
+          authProvider: userData.authProvider,
+          country: userData.country,
+          city: userData.city,
         }
         setUser(tempUser)
         localStorage.setItem("logicl-user", JSON.stringify(tempUser))
@@ -100,22 +104,29 @@ const useProvideAuth = (): Auth => {
     email: string,
     password: string,
     fullName: string,
-    birthYear: number,
+    birthDay: string,
+    birthMonth: string,
+    birthYear: string,
     redirect: string
   ): Promise<void> => {
     setLoading(true)
     try {
       const authResponse = await firebase.auth().createUserWithEmailAndPassword(email, password)
       const tempUser: User = {
-        uid: authResponse.user.uid,
-        name: fullName,
+        userId: authResponse.user.uid,
+        fullName: fullName,
         photoUrl: "",
         email: email,
-        slug: slugGenerator(fullName),
-        birthYear: birthYear,
-        provider: "email",
+        userName: slugGenerator(fullName),
+        birthDate: `${birthDay}/${birthMonth}/${birthYear}`,
+        authProvider: "email",
+        country: "",
+        city: "",
       }
-      await firebase.firestore().collection("users").doc(authResponse.user.uid).set(tempUser)
+      await fetch("https://us-central1-logicl.cloudfunctions.net/user/create", {
+        method: "POST",
+        body: JSON.stringify(tempUser),
+      })
       handleUser(authResponse.user)
       router.push(redirect).then(() => {
         toast({
@@ -146,17 +157,26 @@ const useProvideAuth = (): Auth => {
       const authResponse = await firebase
         .auth()
         .signInWithPopup(isGithub ? githubProvider : googleProvider)
-      const mail = authResponse.user.email
-      const tempUser: User = {
-        uid: authResponse.user.uid,
-        name: authResponse.user.displayName,
-        photoUrl: authResponse.user.photoURL,
-        email: mail,
-        slug: slugGenerator(authResponse.user.displayName),
-        birthYear: 0,
-        provider: isGithub ? "github" : "google",
+
+      if (authResponse.additionalUserInfo.isNewUser) {
+        const mail = authResponse.user.email
+        const username = authResponse.additionalUserInfo.username
+        const tempUser: User = {
+          userId: authResponse.user.uid,
+          fullName: authResponse.user.displayName,
+          photoUrl: authResponse.user.photoURL,
+          email: mail,
+          userName: username ? username : slugGenerator(authResponse.user.displayName),
+          birthDate: "",
+          authProvider: isGithub ? "github" : "google",
+          country: "",
+          city: "",
+        }
+        await fetch("https://us-central1-logicl.cloudfunctions.net/user/create", {
+          method: "POST",
+          body: JSON.stringify(tempUser),
+        })
       }
-      await firebase.firestore().collection("users").doc(authResponse.user.uid).set(tempUser)
 
       handleUser(authResponse.user)
       router.push("/").then(() => {
@@ -210,7 +230,7 @@ const useProvideAuth = (): Auth => {
     setLoading(true)
   }
 
-  useEffect(() => {
+  useEffect((): firebase.Unsubscribe => {
     const rawUserData = localStorage.getItem("logicl-user")
     const userData = JSON.parse(rawUserData)
     if (userData) setUser(userData)
