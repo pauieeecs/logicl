@@ -17,8 +17,16 @@ const teamApp = express();
  *    creatorId: "2321asfxTysaesDe2fvxriaHFVK7Z2",
  * }
  */
+teamApp.options("/create", (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "POST,GET");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  res.status(200).send();
+});
+
 teamApp.post("/create", async (req, res) => {
-  const data = req.body;
+  res.set("Access-Control-Allow-Origin", "*");
+  const data = JSON.parse(req.body);
   // check data
   if (data === null) {
     res.status(400).send({
@@ -86,8 +94,16 @@ teamApp.post("/create", async (req, res) => {
  *    teamId: "başvurulan takım idsi"
  * }
  */
+teamApp.options("/apply", (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "POST,GET");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  res.status(200).send();
+});
+
 teamApp.post("/apply", async (req, res) => {
-  const data = req.body;
+  res.set("Access-Control-Allow-Origin", "*");
+  const data = JSON.parse(req.body);
   // check data
   if (data === null) {
     res.status(400).send({
@@ -144,8 +160,16 @@ teamApp.post("/apply", async (req, res) => {
  *    teamSlug: "agalarla-co",
  * }
  */
+teamApp.options("/evaluate", (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "POST,GET");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  res.status(200).send();
+});
+
 teamApp.post("/evaluate", async (req, res) => {
-  const data = req.body;
+  res.set("Access-Control-Allow-Origin", "*");
+  const data = JSON.parse(req.body);
   // check data
   if (data === null) {
     res.status(400).send({
@@ -223,8 +247,16 @@ teamApp.post("/evaluate", async (req, res) => {
   }
 });
 
+teamApp.options("/update", (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "POST,GET");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  res.status(200).send();
+});
+
 teamApp.post("/update", async (req, res) => {
-  const data = req.body;
+  res.set("Access-Control-Allow-Origin", "*");
+  const data = JSON.parse(req.body);
   // check data
   if (data === null) {
     res.status(400).send({

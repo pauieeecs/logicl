@@ -5,7 +5,7 @@ const Home: React.FC = () => {
   return (
     <div>
       <Head>
-        <title>Logicl with NextJS</title>
+        <title>Keşfet | Logicl</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Explore />

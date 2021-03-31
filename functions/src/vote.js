@@ -5,7 +5,6 @@ const admin = require("./admin").admin;
 
 const voteApp = express();
 
-
 /**
  * post votelama
  * bodyde beklenen değerler;
@@ -16,8 +15,24 @@ const voteApp = express();
  *    vote: 1
  * }
  */
+
+voteApp.options("/post", (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "POST,GET");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  res.status(200).send();
+});
+
+voteApp.options("/comment", (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "POST,GET");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  res.status(200).send();
+});
+
 voteApp.post("/post", async (req, res) => {
-  const data = req.body;
+  res.set("Access-Control-Allow-Origin", "*");
+  const data = JSON.parse(req.body);
   // check data
   if (data === null) {
     res.status(400).send({
@@ -76,7 +91,8 @@ voteApp.post("/post", async (req, res) => {
  * }
  */
 voteApp.post("/comment", async (req, res) => {
-  const data = req.body;
+  res.set("Access-Control-Allow-Origin", "*");
+  const data = JSON.parse(req.body);
   // check data
   if (data === null) {
     res.status(400).send({

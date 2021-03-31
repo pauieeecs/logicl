@@ -6,10 +6,12 @@ import {
   Heading,
   Input,
   Select,
+  Spinner,
   Text,
   Textarea,
   useToast,
 } from "@chakra-ui/react"
+import { useRouter } from "next/dist/client/router"
 import { useState } from "react"
 import Container from "../components/Container"
 import ImageUpload from "../components/ImageUpload"
@@ -36,7 +38,9 @@ const CreatePost: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false)
 
   const { user } = useAuth()
+  const userLoading = useAuth().loading
   const toast = useToast()
+  const router = useRouter()
 
   const handleSubmit = async (): Promise<void> => {
     if (desc.length < 100 || shortDesc.length < 36 || title.length < 8 || category === "") return
@@ -84,6 +88,13 @@ const CreatePost: React.FC = () => {
     }
   }
 
+  if (userLoading) {
+    return <Spinner size="lg" m="auto" />
+  }
+
+  if (!user && !userLoading) {
+    router.push("/auth")
+  }
   return (
     <Container bgSrc="/wave1.svg">
       <Flex

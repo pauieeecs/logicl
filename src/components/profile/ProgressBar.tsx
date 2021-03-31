@@ -7,7 +7,9 @@ type Props = {
 }
 
 const chooseColorForProgressBar = (val: number): string => {
-  if (val >= 0 && val <= 33.3) {
+  if (val === 0) {
+    return "#d5f4fc"
+  } else if (val > 0 && val <= 33.3) {
     return "red"
   } else if (val > 33.3 && val <= 66.6) {
     return "yellow"
@@ -41,10 +43,10 @@ const ProgressBar: React.FC<Props> = ({ upVote, totalVote }) => {
         </Flex>
       </Flex>
       <Progress
-        colorScheme={color}
+        color={color}
         height="6px"
-        value={(upVote / totalVote) * 100}
-        backgroundColor="#DADADA"
+        value={totalVote === 0 ? 100 : (upVote / totalVote) * 100}
+        backgroundColor={upVote === 0 ? "red" : "#DADADA"}
         width="100px"
         borderRadius="120px"
       />

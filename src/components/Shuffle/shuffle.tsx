@@ -64,7 +64,6 @@ const Shuffle: React.FC = () => {
       </Heading>
       <Comments />
 
-      <VoteButton top="-24px" right="50px" down={55} up={55} />
       <Link href="#">
         <Icon
           position="absolute"

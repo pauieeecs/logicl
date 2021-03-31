@@ -1,29 +1,175 @@
-import { Flex, Heading, Wrap, WrapItem } from "@chakra-ui/react"
+import { Button, Flex, Heading, Spinner, Text, Wrap, WrapItem } from "@chakra-ui/react"
 import SmallPost from "./SmallPost"
 import BigPost from "./BigPost"
+import { useEffect, useState } from "react"
+import { IdeaShort } from "../../types/idea"
+import firebase from "../../libs/firebase"
+
 const List: React.FC = () => {
-  const text =
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.including version.."
+  const [bigPosts, setBigPosts] = useState<IdeaShort[]>([])
+  const [smallPosts, setSmallPosts] = useState<IdeaShort[]>([])
+  const [MIPosts, setMIPosts] = useState<IdeaShort[]>([])
+  const [message, setMessage] = useState<string>("")
+  const [bigPostLoading, setBigPostLoading] = useState<boolean>(true)
+  const [smallPostLoading, setSmallPostLoading] = useState<boolean>(true)
+  const [hasMoreBigPost, setHasMoreBigPost] = useState<boolean>(true)
+
+  const fetchBigPost = async (
+    limit: number,
+    start: firebase.firestore.Timestamp = null
+  ): Promise<void> => {
+    setBigPostLoading(true)
+    const res = await (start === null
+      ? firebase
+          .firestore()
+          .collection("idea-short")
+          .orderBy("createdAt", "desc")
+          .limit(limit)
+          .get()
+      : firebase
+          .firestore()
+          .collection("idea-short")
+          .orderBy("createdAt", "desc")
+          .startAfter(start)
+          .limit(limit)
+          .get())
+
+    if (res.size < 1) {
+      setMessage(
+        bigPosts.length < 1 ? "Hiç fikir bulunamadı." : "Yüklenecek başka fikir bulunamadı."
+      )
+      setHasMoreBigPost(false)
+      setBigPostLoading(false)
+      return
+    }
+
+    const tempIdeas: IdeaShort[] = bigPosts
+    res.docs.forEach((doc) => {
+      const data = doc.data()
+      tempIdeas.push({
+        documentId: doc.id,
+        authorName: data.authorName,
+        authorUserId: data.authorUserId,
+        authorUserName: data.authorUserName,
+        category: data.category,
+        createdAt: data.createdAt,
+        interactors: data.interactors,
+        mediaUrl: data.mediaUrl,
+        shortDesc: data.shortDesc,
+        slug: data.slug,
+        teamName: data.teamName,
+        teamSlug: data.teamSlug,
+        title: data.title,
+        totalVote: data.totalVote,
+        upVote: data.upVote,
+      })
+    })
+    if (res.size < limit) {
+      setMessage("Yüklenecek daha fazla fikir bulunamadı")
+      setHasMoreBigPost(false)
+    }
+
+    setBigPosts(tempIdeas)
+    setBigPostLoading(false)
+  }
+
+  const fetchLittlePost = async (): Promise<void> => {
+    setSmallPostLoading(true)
+    const res = await firebase
+      .firestore()
+      .collection("idea-short")
+      .orderBy("upVote", "desc")
+      .limit(4)
+      .get()
+    const tempSmallPosts: IdeaShort[] = []
+    res.forEach((post) => {
+      const data = post.data()
+      tempSmallPosts.push({
+        documentId: post.id,
+        authorName: data.authorName,
+        authorUserId: data.authorUserId,
+        authorUserName: data.authorUserName,
+        category: data.category,
+        createdAt: data.createdAt,
+        interactors: data.interactors,
+        mediaUrl: data.mediaUrl,
+        shortDesc: data.shortDesc,
+        slug: data.slug,
+        teamName: data.teamName,
+        teamSlug: data.teamSlug,
+        title: data.title,
+        totalVote: data.totalVote,
+        upVote: data.upVote,
+      })
+    })
+    setSmallPosts(tempSmallPosts)
+    setSmallPostLoading(false)
+  }
+  //fetch small posts
+  useEffect(() => {
+    fetchLittlePost()
+  }, [])
+
+  //fetch big bois
+  useEffect(() => {
+    if (hasMoreBigPost && bigPosts.length < 1) fetchBigPost(10)
+  }, [bigPosts.length, hasMoreBigPost])
+
   return (
     <Flex direction="column" w="100%" align="center">
-      <Flex w="1080px" mt={10} justify="space-between">
-        <SmallPost title="denme" text={text} upVote={12} totalVote={21} date="14:25 - 21/11/2021" />
-        <SmallPost title="denme" text={text} upVote={12} totalVote={21} date="14:25 - 21/11/2021" />
-        <SmallPost title="denme" text={text} upVote={12} totalVote={21} date="14:25 - 21/11/2021" />
-        <SmallPost title="denme" text={text} upVote={12} totalVote={21} date="14:25 - 21/11/2021" />
+      <Flex w="1080px" mt={10} flexDirection="column">
+        <Text fontWeight="bold" color="#01A7D7" fontSize="24px" textTransform="uppercase" mb={2}>
+          Öne çıkanlar
+        </Text>
+        <Flex justify="space-around">
+          {smallPostLoading ? (
+            <Spinner size="lg" color="blue" mx="auto" my={8} />
+          ) : (
+            <>
+              {smallPosts.map((post, index) => (
+                <SmallPost
+                  isLast={index === smallPosts.length - 1}
+                  smallPost={post}
+                  key={post.documentId}
+                />
+              ))}
+            </>
+          )}
+        </Flex>
       </Flex>
-      <Flex mt={6} width="1080px" height="60px" bgColor="#01A7D7" borderRadius="6px"></Flex>
-      <Wrap w="1080px" spacing={4}>
+      <Wrap w="1080px" mt={8} spacing={4}>
         <WrapItem flex="6" mt={12} flexDirection="column">
-          <BigPost
-            category="lorem"
-            title="muvaffakiyetsizleştiribiliveremeyeceklerimizdenmişsinizcesine"
-            text={text}
-            date="15:25 - 12/14/2020"
-          />
-          <BigPost category="lorem" title="deneme" text={text} date="15:25 - 12/14/2020" />
-          <BigPost category="lorem" title="deneme" text={text} date="15:25 - 12/14/2020" />
-          <BigPost category="lorem" title="deneme" text={text} date="15:25 - 12/14/2020" />
+          <Text fontWeight="bold" color="#01A7D7" fontSize="24px" textTransform="uppercase" mb={2}>
+            Son Paylaşılanlar
+          </Text>
+          {bigPostLoading && bigPosts.length < 1 ? (
+            <Spinner size="lg" color="blue" mx="auto" my={8} />
+          ) : (
+            <>
+              {bigPosts.map((post) => (
+                <BigPost post={post} key={post.documentId} />
+              ))}
+            </>
+          )}
+          <Text
+            display={message === "" ? "none" : "flex"}
+            fontSize="24px"
+            color="gray.400"
+            mx="auto"
+            fontWeight="400"
+          >
+            {message}
+          </Text>
+          <Button
+            width="100%"
+            display={bigPosts.length < 1 || !hasMoreBigPost ? "none" : "flex"}
+            isDisabled={bigPostLoading}
+            isLoading={bigPostLoading}
+            colorScheme="linkedin"
+            onClick={() => fetchBigPost(10, bigPosts[bigPosts.length - 1].createdAt)}
+          >
+            Daha fazla fikir yükle
+          </Button>
         </WrapItem>
         <WrapItem
           flexDirection="column"
@@ -39,39 +185,11 @@ const List: React.FC = () => {
             <Heading my={2} fontSize="20px">
               Most Interected Ideas
             </Heading>
-            <SmallPost
-              title="denme"
-              text={text}
-              upVote={12}
-              totalVote={21}
-              date="14:25 - 21/11/2021"
-            />
-            <SmallPost
-              title="denme"
-              text={text}
-              upVote={12}
-              totalVote={21}
-              date="14:25 - 21/11/2021"
-            />
           </Flex>
           <Flex direction="column" my={4} align="center">
             <Heading my={2} fontSize="20px">
               Most Upvoted Feedbacks
             </Heading>
-            <SmallPost
-              title="denme"
-              text={text}
-              upVote={12}
-              totalVote={21}
-              date="14:25 - 21/11/2021"
-            />
-            <SmallPost
-              title="denme"
-              text={text}
-              upVote={12}
-              totalVote={21}
-              date="14:25 - 21/11/2021"
-            />
           </Flex>
         </WrapItem>
       </Wrap>

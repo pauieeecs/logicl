@@ -11,15 +11,15 @@ const Buttons: React.FC<Props> = ({ button1, button2, active, setActive }) => {
       mt={2}
       spacing={0}
       bgColor="#fff"
-      border="1px solid #1A202C"
-      borderRadius="24px"
-      w="251px"
+      border="4px solid #00BAEF"
+      borderRadius={24}
+      w="240px"
     >
       <Button
-        w="125px"
-        mr="-px"
+        ml="-1px"
+        w="120px"
         colorScheme="#C1C1C1"
-        borderRadius="39px"
+        borderRadius={24}
         isActive={active}
         onClick={() => setActive(!active)}
         isDisabled={active}
@@ -29,6 +29,7 @@ const Buttons: React.FC<Props> = ({ button1, button2, active, setActive }) => {
         }}
         _hover={{
           bg: "#01BAEF",
+          textColor: "#fff",
         }}
         _active={{
           bg: "#01BAEF",
@@ -39,10 +40,10 @@ const Buttons: React.FC<Props> = ({ button1, button2, active, setActive }) => {
         {button1}
       </Button>
       <Button
-        w="125px"
-        mr="-px"
+        mr="-1px"
+        w="120px"
+        borderRadius={24}
         colorScheme="#C1C1C1"
-        borderRadius="39px"
         isActive={!active}
         isDisabled={!active}
         _disabled={{
@@ -51,6 +52,7 @@ const Buttons: React.FC<Props> = ({ button1, button2, active, setActive }) => {
         }}
         _hover={{
           bg: "#01BAEF",
+          textColor: "#fff",
         }}
         onClick={() => setActive(!active)}
         _active={{

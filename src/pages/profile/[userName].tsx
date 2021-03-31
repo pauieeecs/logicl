@@ -5,21 +5,24 @@ import Idea from "../../components/profile/Idea"
 import Comment from "../../components/profile/Comment"
 import ProfileComponent from "../../components/profile/Profile"
 import SwitchButton from "../../components/SwitchButton"
-import { useAuth } from "../../context/authentication"
 import firebase from "../../libs/firebase"
 import { User } from "../../types/user"
 import { IdeaShort } from "../../types/idea"
+import { useRouter } from "next/dist/client/router"
 import { CommentUnderUser } from "../../types/comment"
 
 const ProfilePage: React.FC = () => {
   const [isActive, setIsActive] = useState<boolean>(true)
-  const { user } = useAuth()
-  const [userData, setUserData] = useState<User>(null)
+  const [userData, setUserData] = useState<User>()
   const [ideas, setIdeas] = useState<IdeaShort[]>([])
   const [userLoading, setUserLoading] = useState<boolean>(true)
   const [ideaLoading, setIdeaLoading] = useState<boolean>(true)
   const [ideaMessage, setIdeaMessage] = useState<string>("")
   const [ideaHasMore, setIdeaHasMore] = useState<boolean>(true)
+
+  const router = useRouter()
+  const { userName } = router.query
+
   const [comments, setComments] = useState<CommentUnderUser[]>([])
   const [commentLoading, setCommentLoading] = useState<boolean>(true)
   const [commentHasMore, setCommentHasMore] = useState<boolean>(true)
@@ -36,14 +39,14 @@ const ProfilePage: React.FC = () => {
         ? await firebase
             .firestore()
             .collection("idea-short")
-            .where("authorUserId", "==", user.userId)
+            .where("authorUserName", "==", userName)
             .orderBy("createdAt", "desc")
             .limit(limit)
             .get()
         : await firebase
             .firestore()
             .collection("idea-short")
-            .where("authorUserId", "==", user.userId)
+            .where("authorUserName", "==", userName)
             .orderBy("createdAt", "desc")
             .startAfter(start)
             .limit(limit)
@@ -55,7 +58,7 @@ const ProfilePage: React.FC = () => {
       )
       setIdeaHasMore(false)
       setIdeaLoading(false)
-      return null
+      return
     }
 
     const tempIdeas: IdeaShort[] = ideas
@@ -94,25 +97,24 @@ const ProfilePage: React.FC = () => {
   ): Promise<void> => {
     if (userData === null) return
     setCommentLoading(true)
+    const docs = await firebase
+      .firestore()
+      .collection("user")
+      .where("userName", "==", userName)
+      .limit(1)
+      .get()
+
+    const userDoc = docs.docs[0].ref
+
     const res =
       start !== null
-        ? await firebase
-            .firestore()
-            .collection("user")
-            .doc(user.userId)
+        ? await userDoc
             .collection("comment")
             .orderBy("createdAt", "desc")
             .startAfter(start)
             .limit(limit)
             .get()
-        : await firebase
-            .firestore()
-            .collection("user")
-            .doc(user.userId)
-            .collection("comment")
-            .orderBy("createdAt", "desc")
-            .limit(limit)
-            .get()
+        : await userDoc.collection("comment").orderBy("createdAt", "desc").limit(limit).get()
 
     if (res.empty) {
       setCommentLoading(false)
@@ -149,16 +151,23 @@ const ProfilePage: React.FC = () => {
 
   useEffect(() => {
     setUserLoading(true)
+    if (!userName) {
+      return
+    }
     const unsub = firebase
       .firestore()
       .collection("user")
-      .doc(user?.userId)
+      .where("userName", "==", userName)
+      .limit(1)
       .onSnapshot((res) => {
-        if (!res.exists) {
+        if (res.size < 1) {
           setUserData(null)
+          setUserLoading(false)
+          setIdeaLoading(false)
+          setCommentLoading(false)
           return
         }
-        const data = res.data()
+        const data = res.docs[0].data()
         const tempUser: User = {
           fullName: data.fullName,
           userId: data.userId,
@@ -186,7 +195,7 @@ const ProfilePage: React.FC = () => {
       })
 
     return () => unsub()
-  }, [user?.userId])
+  }, [userName])
 
   useEffect(() => {
     if (!userLoading && comments.length < 1) {
@@ -215,7 +224,7 @@ const ProfilePage: React.FC = () => {
         {userLoading ? (
           <Spinner size="lg" color="blue" m="auto" />
         ) : userData === null ? (
-          <Text>
+          <Text fontSize="20px" fontWeight="500" textAlign="center" my="auto" color="gray.700">
             Kullanıcı bulunamadı. Lütfen adresi kontrol ediniz veya kullanıcının varlığından emin
             olunuz.
           </Text>
@@ -223,81 +232,85 @@ const ProfilePage: React.FC = () => {
           <ProfileComponent user={userData} />
         )}
       </Flex>
-      <Flex
-        w="976px"
-        p={4}
-        borderRadius="8px"
-        bgColor="#E6F8FD"
-        direction="column"
-        align="center"
-        boxShadow="md"
-      >
-        <SwitchButton
-          button1="Fikirler"
-          button2="Yorumlar"
-          active={isActive}
-          setActive={setIsActive}
-        />
-        {isActive ? (
-          <>
-            {ideaLoading && ideas.length < 1 ? (
-              <Spinner size="lg" color="blue" m={8} />
-            ) : (
-              <>
-                {ideas.map((idea) => (
-                  <Idea key={idea.documentId} idea={idea} />
-                ))}
-                {ideaLoading ? (
-                  <Spinner size="lg" color="blue" m={8} />
-                ) : (
-                  <Text my={2} color="gray.400" fontWeight="400">
-                    {ideaMessage}
-                  </Text>
-                )}
-              </>
-            )}
-            <Flex
-              flexDir="column"
-              mt={4}
-              onClick={() => fetchPost(5, ideas[ideas.length - 1].createdAt)}
-              display={ideaHasMore ? "flex" : "none"}
-            >
-              <Image src="/profile-down.svg" cursor="pointer" />
-              <Image src="/profile-down.svg" cursor="pointer" />
-              <Image src="/profile-down.svg" cursor="pointer" />
-            </Flex>
-          </>
-        ) : (
-          <>
-            {commentLoading && comments.length < 1 ? (
-              <Spinner size="lg" color="blue" m={8} />
-            ) : (
-              <>
-                {comments.map((comment) => (
-                  <Comment commentUnderUser={comment} key={comment.documentId} />
-                ))}
-                {commentLoading ? (
-                  <Spinner size="lg" color="blue" m={8} />
-                ) : (
-                  <Text my={2} color="gray.400" fontWeight="400">
-                    {commentMessage}
-                  </Text>
-                )}
-                <Flex
-                  flexDir="column"
-                  mt={4}
-                  onClick={() => fetchComments(5, comments[comments.length - 1].createdAt)}
-                  display={commentHasMore ? "flex" : "none"}
-                >
-                  <Image src="/profile-down.svg" cursor="pointer" />
-                  <Image src="/profile-down.svg" cursor="pointer" />
-                  <Image src="/profile-down.svg" cursor="pointer" />
-                </Flex>
-              </>
-            )}
-          </>
-        )}
-      </Flex>
+      {!userLoading && userData === null ? (
+        <></>
+      ) : (
+        <Flex
+          w="976px"
+          p={4}
+          borderRadius="8px"
+          bgColor="#E6F8FD"
+          direction="column"
+          align="center"
+          boxShadow="md"
+        >
+          <SwitchButton
+            button1="Fikirler"
+            button2="Yorumlar"
+            active={isActive}
+            setActive={setIsActive}
+          />
+          {isActive ? (
+            <>
+              {ideaLoading && ideas.length < 1 ? (
+                <Spinner size="lg" color="blue" m={8} />
+              ) : (
+                <>
+                  {ideas.map((idea) => (
+                    <Idea key={idea.documentId} idea={idea} />
+                  ))}
+                  {ideaLoading ? (
+                    <Spinner size="lg" color="blue" m={8} />
+                  ) : (
+                    <Text my={2} color="gray.400" fontWeight="400">
+                      {ideaMessage}
+                    </Text>
+                  )}
+                </>
+              )}
+              <Flex
+                flexDir="column"
+                mt={4}
+                onClick={() => fetchPost(5, ideas[ideas.length - 1].createdAt)}
+                display={ideaHasMore ? "flex" : "none"}
+              >
+                <Image src="/profile-down.svg" cursor="pointer" />
+                <Image src="/profile-down.svg" cursor="pointer" />
+                <Image src="/profile-down.svg" cursor="pointer" />
+              </Flex>
+            </>
+          ) : (
+            <>
+              {commentLoading && comments.length < 1 ? (
+                <Spinner size="lg" color="blue" m={8} />
+              ) : (
+                <>
+                  {comments.map((comment) => (
+                    <Comment commentUnderUser={comment} key={comment.documentId} />
+                  ))}
+                  {commentLoading ? (
+                    <Spinner size="lg" color="blue" m={8} />
+                  ) : (
+                    <Text my={2} color="gray.400" fontWeight="400">
+                      {commentMessage}
+                    </Text>
+                  )}
+                  <Flex
+                    flexDir="column"
+                    mt={4}
+                    onClick={() => fetchComments(5, comments[comments.length - 1].createdAt)}
+                    display={commentHasMore ? "flex" : "none"}
+                  >
+                    <Image src="/profile-down.svg" cursor="pointer" />
+                    <Image src="/profile-down.svg" cursor="pointer" />
+                    <Image src="/profile-down.svg" cursor="pointer" />
+                  </Flex>
+                </>
+              )}
+            </>
+          )}
+        </Flex>
+      )}
     </Container>
   )
 }

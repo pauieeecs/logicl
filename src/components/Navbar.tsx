@@ -30,10 +30,10 @@ const Navbar: React.FC = () => {
         </Text>
 
         <Flex flexDirection="row">
-          <Link href="/addidea">
+          <Link href={user ? "/addidea" : "/auth"}>
             <Image cursor="pointer" boxSize={6} src="/plus.svg" />
           </Link>
-          <Link href="/notifications">
+          <Link href={user ? "/notifications" : "/auth"}>
             <Image cursor="pointer" mx={2} boxSize={6} src="/bell.svg" />
           </Link>
           <Menu>

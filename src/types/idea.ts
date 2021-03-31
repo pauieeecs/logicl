@@ -40,28 +40,31 @@ export interface IdeaShort {
 }
 
 export interface IdeaFull {
-  ideaTitle: string
-  ideaFullDesc: string
-  ideaUpVote: number
-  ideaDownVote: number
-  ideaInteractorsId: Array<string>[]
-  ideaCreatedAt: firebase.firestore.Timestamp
-  ideaSlug: string
-  ideaAuthorUserName: string
-  ideaAuthorSlug: string
-  ideaMediaUrl: string
-  ideaAuthorBio: string
-  ideaAuthorCity: string
-  ideaAuthorPhotoUrl: string
+  documentId: string
+  authorBio: string
+  authorCity: string
+  authorName: string
+  authorPhotoUrl: string
+  authorUserId: string
+  authorUserName: string
+  category: string
+  createdAt: firebase.firestore.Timestamp
+  fullDesc: string
+  interactors: IdeaInteractors[]
+  mediaUrl: string
+  slug: string
   teamName: string
   teamSlug: string
+  title: string
+  totalVote: number
+  upVote: number
 }
 
 export interface IdeaComment {
-  commentCreatedAt: firebase.firestore.Timestamp
-  commentText: string
-  commentFeeling: boolean
-  commentUpVote: number
-  commentAuthorUserName: string
-  commentInteractorsId: Array<string>[]
+  createdAt: firebase.firestore.Timestamp
+  text: string
+  feeling: boolean
+  upVote: number
+  authorUserName: string
+  interactorsId: Array<string>[]
 }

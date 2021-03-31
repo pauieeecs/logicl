@@ -1,60 +1,75 @@
-import { Flex, Heading, Text } from "@chakra-ui/react"
-import { useState } from "react"
+import { Flex, Heading, Link, Text } from "@chakra-ui/react"
 import VoteButton from "../VoteButton"
-import ProfileCard from "../ProfileCard"
+import { IdeaShort } from "../../types/idea"
+import { useRouter } from "next/dist/client/router"
 
 type Props = {
-  category: string
-  title: string
-  text: string
-  date: string
+  post: IdeaShort
 }
 
-const BigPost: React.FC<Props> = ({ category, title, text, date }) => {
-  const [showMore, setShowMore] = useState<boolean>(false)
+const BigPost: React.FC<Props> = ({ post }) => {
+  const router = useRouter()
   return (
     <Flex
       boxShadow="md"
       w="100%"
-      h="250px"
       position="relative"
       borderRadius="10px"
       mb={10}
       bgColor="#E6F8FD"
-      _hover={{ bgColor: "#C3F2FF", cursor: "pointer" }}
+      _hover={{ bgColor: "#D5F4FC", cursor: "pointer" }}
+      flexDirection="column"
+      p={4}
     >
-      <VoteButton right="16px" top="-24px" up={55} down={55} />
-      <Flex padding="10px 15px" mx={2} direction="column">
-        <Text my={1} fontWeight="bold">
-          {category}
-        </Text>
-        <Flex position="relative">
-          <Heading fontSize="28px" noOfLines={1} maxW="560px">
-            {title}
-          </Heading>
-          <Flex mx={2} align="flex-end" fontSize="14px">
-            <Flex
-              _hover={{ textDecoration: "underline" }}
-              onMouseOver={() => setShowMore(true)}
-              onMouseLeave={() => setShowMore(false)}
-              direction="column"
-              color="gray"
+      <VoteButton
+        interactors={post.interactors}
+        right="16px"
+        top="-24px"
+        up={post.upVote}
+        total={post.totalVote}
+        ideaId={post.documentId}
+      />
+      <Flex
+        direction="column"
+        justifyContent="space-between"
+        width="100%"
+        height="100%"
+        onClick={() => router.push(`/post/${post.slug}`)}
+      >
+        <Flex direction="column">
+          <Text fontWeight="bold" color="#01A7D7" textTransform="uppercase">
+            {post.category}
+          </Text>
+          <Flex position="relative">
+            <Heading
+              fontWeight="600"
+              textTransform="capitalize"
+              fontSize="28px"
+              noOfLines={1}
+              maxW="560px"
             >
-              <Text>@mehmet sinan topal</Text>
-              <Flex hidden={!showMore ? true : false}>
-                <ProfileCard
-                  userName="Sinan Topal"
-                  userDesc="lorem ipsum dolor sit amet constectur adipiscing"
-                />
-              </Flex>
-            </Flex>
+              {post.title}
+            </Heading>
           </Flex>
+          <Text fontSize="18px" noOfLines={5} mt={2} color="gray.600">
+            {post.shortDesc}
+          </Text>
         </Flex>
-        <Text fontSize="18px" noOfLines={5}>
-          {text}
+      </Flex>
+      <Flex width="100%" alignSelf="flex-end" alignItems="center" justifyContent="flex-end" mt={2}>
+        <Link
+          color="gray.500"
+          mr={2}
+          zIndex="100"
+          onClick={() => router.push(`/profile/${post.authorUserName}`)}
+        >
+          @{post.authorUserName}
+        </Link>
+        <Text color="gray.500" fontWeight="bolder" mr={2}>
+          -
         </Text>
-        <Text color="gray.500" align="end" mt={2}>
-          {date}
+        <Text color="gray.500" align="end">
+          {new Date(post.createdAt.seconds * 1000).toLocaleDateString("tr-TR")}
         </Text>
       </Flex>
     </Flex>

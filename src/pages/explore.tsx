@@ -9,7 +9,7 @@ const Explore: React.FC = () => {
 
   return (
     <Container bgSrc="/wave1.svg">
-      <SwitchButton button1="List" button2="Shuffle" active={isActive} setActive={setIsActive} />
+      <SwitchButton button1="Liste" button2="Karışık" active={isActive} setActive={setIsActive} />
       {isActive ? <List /> : <Shuffle />}
     </Container>
   )

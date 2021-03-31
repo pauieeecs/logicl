@@ -16,7 +16,7 @@ const Profile: React.FC<Props> = ({ user }) => {
           align="center"
           w="140px"
           h="140px"
-          borderRadius="325px"
+          borderRadius="70px"
           backgroundColor="#01BAEF"
           mt={8}
         >
@@ -26,13 +26,24 @@ const Profile: React.FC<Props> = ({ user }) => {
         <Heading textColor="#003848" mt={4}>
           {user.fullName}
         </Heading>
-        <Text textColor="#015D78" fontWeight="bold" fontSize="18px">
+        <Text
+          textColor="#015D78"
+          display={user.jobTitle === "" ? "none" : "flex"}
+          fontWeight="bold"
+          fontSize="18px"
+        >
           {user.jobTitle}
         </Text>
-        <Text textColor="#015D78" fontSize="18px">
+        <Text textColor="#015D78" display={user.city === "" ? "none" : "flex"} fontSize="18px">
           {user.city !== "" ? `${user.city}/${user.country}` : ""}
         </Text>
-        <Text textColor="#015D78" fontSize="24px" mt={4} mx={24} noOfLines={4}>
+        <Text
+          textColor="#015D78"
+          fontSize="24px"
+          mt={user.city === "" ? 0 : 4}
+          mx={24}
+          noOfLines={4}
+        >
           {user.bio}
         </Text>
       </Flex>

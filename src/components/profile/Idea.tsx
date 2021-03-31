@@ -14,29 +14,29 @@ const Idea: React.FC<Props> = ({ idea }) => {
     <Flex
       width="90%"
       backgroundColor="#C3F2FF"
-      borderRadius="8px"
+      borderRadius={6}
       mt={4}
       direction="column"
       p={4}
-      onClick={() => router.push(`/idea/${idea.slug}`)}
+      onClick={() => router.push(`/post/${idea.slug}`)}
       cursor="pointer"
     >
       <Flex direction="row" alignItems="flex-end" justifyContent="space-between">
-        <Text fontWeight="500" textTransform="uppercase" fontSize="12px" textColor="gray.400">
+        <Text fontWeight="bold" color="#01A7D7" textTransform="uppercase" fontSize="12px">
           {idea.category}
         </Text>
         <ProgressBar upVote={idea.upVote} totalVote={idea.totalVote} />
       </Flex>
       <Flex direction="column">
         <Flex alignItems="flex-end">
-          <Text textColor="gray.700" fontSize="20px" fontWeight="500">
+          <Text textColor="gray.700" fontSize="20px" fontWeight="500" textTransform="capitalize">
             {idea.title}
           </Text>
         </Flex>
         <Text textColor="#003848" fontSize="12px" noOfLines={4}>
           {idea.shortDesc}
         </Text>
-        <Text textColor="#837C7C" fontSize="xs" alignSelf="flex-end" mt={4}>
+        <Text textColor="#837C7C" fontSize="12px" alignSelf="flex-end" mt={4}>
           {new Date(idea.createdAt.seconds * 1000).toLocaleDateString("tr-TR")}
         </Text>
       </Flex>
