@@ -12,6 +12,7 @@ import {
   useToast,
 } from "@chakra-ui/react"
 import { useRouter } from "next/dist/client/router"
+import Head from "next/head"
 import { useState } from "react"
 import Container from "../components/Container"
 import ImageUpload from "../components/ImageUpload"
@@ -97,6 +98,10 @@ const CreatePost: React.FC = () => {
   }
   return (
     <Container bgSrc="/wave1.svg">
+      <Head>
+        <title>Fikir paylaş | Logicl</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Flex
         w="720px"
         minH="480px"
@@ -152,20 +157,6 @@ const CreatePost: React.FC = () => {
                 minH="140px"
                 placeholder="Minimum 100 karakter"
               />
-              <Flex w="100%" borderRadius="10px" mt={6} direction="column">
-                <Flex>
-                  <FormLabel my={1} mr={1}>
-                    Fotoğraf Yükle
-                  </FormLabel>
-                  <Text h="24px" my={1} color="gray">
-                    (En fazla 5 adet)
-                  </Text>
-                  <Text fontSize="12px" color="gray">
-                    *opsiyonel
-                  </Text>
-                </Flex>
-                <ImageUpload />
-              </Flex>
             </Flex>
           </Flex>
 

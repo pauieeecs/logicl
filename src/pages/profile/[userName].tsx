@@ -10,23 +10,27 @@ import { User } from "../../types/user"
 import { IdeaShort } from "../../types/idea"
 import { useRouter } from "next/dist/client/router"
 import { CommentUnderUser } from "../../types/comment"
+import Head from "next/head"
+import { useAuth } from "../../context/authentication"
 
 const ProfilePage: React.FC = () => {
   const [isActive, setIsActive] = useState<boolean>(true)
+  const [isSameUser, setIsSameUser] = useState<boolean>(false)
   const [userData, setUserData] = useState<User>()
-  const [ideas, setIdeas] = useState<IdeaShort[]>([])
   const [userLoading, setUserLoading] = useState<boolean>(true)
-  const [ideaLoading, setIdeaLoading] = useState<boolean>(true)
-  const [ideaMessage, setIdeaMessage] = useState<string>("")
-  const [ideaHasMore, setIdeaHasMore] = useState<boolean>(true)
 
   const router = useRouter()
   const { userName } = router.query
+  const { user } = useAuth()
 
   const [comments, setComments] = useState<CommentUnderUser[]>([])
   const [commentLoading, setCommentLoading] = useState<boolean>(true)
   const [commentHasMore, setCommentHasMore] = useState<boolean>(true)
   const [commentMessage, setCommentMessage] = useState<string>("")
+  const [ideas, setIdeas] = useState<IdeaShort[]>([])
+  const [ideaLoading, setIdeaLoading] = useState<boolean>(true)
+  const [ideaMessage, setIdeaMessage] = useState<string>("")
+  const [ideaHasMore, setIdeaHasMore] = useState<boolean>(true)
 
   const fetchPost = async (
     limit: number,
@@ -150,6 +154,11 @@ const ProfilePage: React.FC = () => {
   }
 
   useEffect(() => {
+    if (!user) return
+    if (user.userName === userName) setIsSameUser(true)
+  }, [user, userName])
+
+  useEffect(() => {
     setUserLoading(true)
     if (!userName) {
       return
@@ -211,6 +220,12 @@ const ProfilePage: React.FC = () => {
 
   return (
     <Container bgSrc="/wave1.svg">
+      <Head>
+        <title>
+          {userLoading ? "Profil" : userData !== null ? userData.fullName : "Sonuç yok."} | Logicl
+        </title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Flex
         boxShadow="md"
         w="976px"
@@ -229,7 +244,7 @@ const ProfilePage: React.FC = () => {
             olunuz.
           </Text>
         ) : (
-          <ProfileComponent user={userData} />
+          <ProfileComponent user={userData} isSameUser={isSameUser} />
         )}
       </Flex>
       {!userLoading && userData === null ? (

@@ -21,6 +21,7 @@ import { IdeaFull } from "../../types/idea"
 import firebase from "../../libs/firebase"
 import { useAuth } from "../../context/authentication"
 import { Comment } from "../../types/comment"
+import Head from "next/head"
 
 const PostDetail: React.FC = () => {
   const router = useRouter()
@@ -58,14 +59,17 @@ const PostDetail: React.FC = () => {
         return
       }
       const data = res.docs[0].data()
+      const userDoc = await firebase.firestore().collection("user").doc(data.authorUserId).get()
+      const userData = userDoc.data()
+
       setPost({
         documentId: res.docs[0].id,
-        authorBio: data.authorBio,
-        authorCity: data.authorCity,
-        authorName: data.authorName,
-        authorPhotoUrl: data.authorPhotoUrl,
-        authorUserId: data.authorUserId,
-        authorUserName: data.authorUserName,
+        authorBio: userData.bio,
+        authorCity: userData.city,
+        authorName: userData.fullName,
+        authorPhotoUrl: userData.photoUrl,
+        authorUserId: userData.userId,
+        authorUserName: userData.userName,
         category: data.category,
         createdAt: data.createdAt,
         fullDesc: data.fullDesc,
@@ -237,6 +241,10 @@ const PostDetail: React.FC = () => {
         borderRadius={12}
         position="relative"
       >
+        <Head>
+          <title>{post === null ? "Detay" : post.title} | Logicl</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
         {postLoading ? (
           <Spinner size="lg" color="blue" m="auto" />
         ) : post === null ? (

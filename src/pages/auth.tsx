@@ -9,6 +9,7 @@ import {
   Select,
 } from "@chakra-ui/react"
 import { useRouter } from "next/dist/client/router"
+import Head from "next/head"
 import React, { useMemo, useState } from "react"
 import Container from "../components/Container"
 import { useAuth } from "../context/authentication"
@@ -70,6 +71,10 @@ const Auth: React.FC = () => {
 
   return (
     <Container bgSrc="/wave1.svg">
+      <Head>
+        <title>Giriş Yap & Kayıt Ol | Logicl</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Flex width="1080px" height="100%" flexDirection="row" justifyContent="space-between" py={16}>
         <Flex
           boxShadow="md"

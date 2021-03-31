@@ -10,10 +10,13 @@ import firebase from "../../libs/firebase"
 import { User } from "../../types/user"
 import { IdeaShort } from "../../types/idea"
 import { CommentUnderUser } from "../../types/comment"
+import Head from "next/head"
+import { useRouter } from "next/dist/client/router"
 
 const ProfilePage: React.FC = () => {
   const [isActive, setIsActive] = useState<boolean>(true)
   const { user } = useAuth()
+  const router = useRouter()
   const [userData, setUserData] = useState<User>(null)
   const [ideas, setIdeas] = useState<IdeaShort[]>([])
   const [userLoading, setUserLoading] = useState<boolean>(true)
@@ -156,6 +159,7 @@ const ProfilePage: React.FC = () => {
       .onSnapshot((res) => {
         if (!res.exists) {
           setUserData(null)
+          setUserLoading(false)
           return
         }
         const data = res.data()
@@ -200,8 +204,16 @@ const ProfilePage: React.FC = () => {
     }
   }, [userLoading, ideas.length])
 
+  if (!userLoading && !user) {
+    router.push("/auth")
+  }
+
   return (
     <Container bgSrc="/wave1.svg">
+      <Head>
+        <title>{userData === null ? "Profil" : userData.fullName} | Logicl</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Flex
         boxShadow="md"
         w="976px"
@@ -215,12 +227,12 @@ const ProfilePage: React.FC = () => {
         {userLoading ? (
           <Spinner size="lg" color="blue" m="auto" />
         ) : userData === null ? (
-          <Text>
+          <Text fontSize="20px" fontWeight="500" textAlign="center" my="auto" color="gray.700">
             Kullanıcı bulunamadı. Lütfen adresi kontrol ediniz veya kullanıcının varlığından emin
             olunuz.
           </Text>
         ) : (
-          <ProfileComponent user={userData} />
+          <ProfileComponent isSameUser={true} user={userData} />
         )}
       </Flex>
       <Flex

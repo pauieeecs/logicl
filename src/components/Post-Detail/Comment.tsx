@@ -72,6 +72,7 @@ const Comment: React.FC<Props> = ({
     }
   }
   useEffect(() => {
+    if (user === null) return
     if (interactors.length < 1) {
       setVoteAble(true)
     } else {
@@ -80,7 +81,7 @@ const Comment: React.FC<Props> = ({
         if (interactor === user.userId) setVoteAble(false)
       })
     }
-  }, [interactors, user.userId])
+  }, [interactors, user])
   return (
     <Flex
       position="relative"

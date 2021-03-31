@@ -171,27 +171,6 @@ const List: React.FC = () => {
             Daha fazla fikir yükle
           </Button>
         </WrapItem>
-        <WrapItem
-          flexDirection="column"
-          flex="2"
-          borderRadius="10px"
-          alignItems="center"
-          h="960px"
-          mt={12}
-          bgColor="#E6F8FD"
-          boxShadow="md"
-        >
-          <Flex direction="column" py={4} borderBottom="2px solid black" align="center">
-            <Heading my={2} fontSize="20px">
-              Most Interected Ideas
-            </Heading>
-          </Flex>
-          <Flex direction="column" my={4} align="center">
-            <Heading my={2} fontSize="20px">
-              Most Upvoted Feedbacks
-            </Heading>
-          </Flex>
-        </WrapItem>
       </Wrap>
     </Flex>
   )

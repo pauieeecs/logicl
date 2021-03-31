@@ -1,4 +1,4 @@
-import { Avatar, Flex, Heading, Image, Spinner, Text } from "@chakra-ui/react"
+import { Avatar, Flex, Heading, Spinner, Text } from "@chakra-ui/react"
 import Link from "next/link"
 type Props = {
   name: string
@@ -34,8 +34,8 @@ const Profile: React.FC<Props> = ({ name, about, city, image, authorUserName, lo
           <Text textAlign="center" fontSize="sm" color="#015D78">
             {city}
           </Text>
-          <Text position="absolute" right="2" bottom="2" fontSize="sm">
-            <Link href={`/profile/${authorUserName}`}>go to profile</Link>
+          <Text position="absolute" right="5%" bottom="3%" fontSize="sm">
+            <Link href={`/profile/${authorUserName}`}>profiline git →</Link>
           </Text>
         </>
       )}
