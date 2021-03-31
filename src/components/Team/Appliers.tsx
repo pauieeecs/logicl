@@ -20,7 +20,7 @@ const Appliers: React.FC<Props> = ({ appliersName, appliersDesc }) => {
       >
         <Avatar size="lg" name="kerem esen" src="https://bit.ly/dan-abramov" cursor="pointer" />
       </Flex>
-      <Flex direction="column" align="flex-start" w="60%" h="100%">
+      <Flex direction="column" align="flex-start" w="80%" h="100%">
         <Text fontWeight="500" textColor="#003848">
           {appliersName}
         </Text>

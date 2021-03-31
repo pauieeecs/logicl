@@ -50,7 +50,7 @@ const teamAdmin: React.FC = () => {
           <MemberAdmin memberName="Kerem Esen" memberBio="yazilim ögren" />
           <MemberAdmin
             memberName="Kerem Esen"
-            memberBio="yazilim ögrenip her gün 5l su içen sabah 6 da kalkıp web askiyla yanıp tutusan bir genc nt nt nt nt"
+            memberBio="yazilim ögrenip her gün 5l su içen sabah 6 da kalkıp web askiyla yanıp tutusan bir genc nt nt nt nt nt nt nt nt nt nt nt nt nt nt nt nt nt nt nt nt nt nt nt nt"
           />
         </Flex>
         <Box w="95%" alignSelf="center" h="1px" my={6} bgColor="black" />
